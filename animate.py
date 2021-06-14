@@ -3,6 +3,7 @@ from PIL import Image
 import pygame
 import constants
 
+# SPLIT ANIMATED GIF IMAGE INTO LIST
 def split_animated_gif(gif_file_path):
     ret = []
     gif = Image.open(gif_file_path)
@@ -15,6 +16,7 @@ def split_animated_gif(gif_file_path):
         ret.append(pygame_image)
     return ret
 
+# RESIZE IMG IN LIST TO GAME SIZE
 def get_animated(gif_file_path):
     background = []
     background = split_animated_gif(gif_file_path)
