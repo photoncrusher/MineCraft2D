@@ -5,6 +5,7 @@ from pygame.locals import *
 import pygame.mixer as mixer
 from animate import *
 import time
+import pygame_gui
 
 class MainMenu:
 
@@ -39,6 +40,9 @@ class MainMenu:
         pygame.display.set_caption(self.name)
         os.environ['SDL_VIDEO_CENTERED'] = '1'
 
+        manager = pygame_gui.UIManager((self.width, self.heigth))
+        clock = pygame.time.Clock()
+
         # SET THE CREDIT
         credit = pygame.image.load(self.credit)
         credit.convert()
@@ -47,7 +51,7 @@ class MainMenu:
         # SET THE BACKGROUND IMAGE IN HOMESCREEN
         background = self.background_img
         index = 0.0
-        
+
         # SET THE BACKGROUND AUDIO
         mixer.init()
         mixer.set_num_channels(3)
@@ -57,7 +61,14 @@ class MainMenu:
 
         selected = 'start'
 
+        start_btn = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((350, 275), (100, 50)),
+                                                 text='START',
+                                                 manager=manager)
+        seed_text_box = pygame_gui.elements.UITextEntryLine(relative_rect=pygame.Rect((350, 350), (100, 50)),
+                                                      manager=manager)
         while True:
+            time_delta = clock.tick(60) / 1000.0
+
             # CLICK X TO EXIT EVENT GET
             for event in pygame.event.get():
                 if event.type == QUIT:
@@ -76,14 +87,23 @@ class MainMenu:
                         if selected=="quit":
                             pygame.quit()
                             quit()
-            
+
+                if event.type == pygame.USEREVENT:
+                    if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
+                        if event.ui_element == start_btn:
+                            print('Start game with seed:', seed_text_box.text)
+                            # self.game.start()
+
+                manager.process_events(event)
+            manager.update(time_delta)
+
             # CREDIT
             if self.stage == 0:
                 DISPLAYSURF.fill(self.background_color)
                 DISPLAYSURF.blit(credit, (0, 0))
                 self.stage = 1
                 pygame.display.update()
-                time.sleep(5)
+                time.sleep(0.5)
 
             elif self.stage == 1:
                 # DRAW DISPLAY SURFACE: BACKGOUND COLOR, BACKGROUND IMAGE OF HOMESCREEN
@@ -109,6 +129,8 @@ class MainMenu:
                 DISPLAYSURF.blit(title, (self.width/2 - (title_rect[2]/2), self.heigth/9))
                 DISPLAYSURF.blit(text_start, (self.width/2 - (start_rect[2]/2), self.heigth/2))
                 DISPLAYSURF.blit(text_quit, (self.width/2 - (quit_rect[2]/2), self.heigth*3/5))
+
+                manager.draw_ui(DISPLAYSURF)
 
                 # UPDATE (MUST CALL AT END OF LOOP)
                 pygame.display.update()
