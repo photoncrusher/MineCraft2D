@@ -39,11 +39,13 @@ class MainMenuScreen(Screen):
                 self.selected = "start"
             elif event.key == pygame.K_DOWN:
                 self.selected = "quit"
+            elif event.key == pygame.K_ESCAPE:
+                return 'main_ui'
             if event.key == pygame.K_RETURN:
                 if self.selected == "start":
                     mixer.stop()
                     self.main.screen = self.main.IN_GAME_SCREEN
-                    return
+                    return 'not_main_ui'
                 if self.selected == "quit":
                     pygame.quit()
                     quit()
@@ -51,7 +53,6 @@ class MainMenuScreen(Screen):
     def show(self):
         # SET THE DISPLAY SURFACE AND CAPTION
         DISPLAYSURF = self.main.window
-
         manager = pygame_gui.UIManager((self.width, self.heigth))
         clock = pygame.time.Clock()
 
@@ -65,15 +66,19 @@ class MainMenuScreen(Screen):
 
         # SET LOCAL VARIABLE FOR MENU STATUS
         ui = UserInterface(manager, self.main.seed,self)
-
+        main_ui = True
         while True:
             selected = self.selected
             time_delta = clock.tick(60) / 1000.0
 
             # CLICK X TO EXIT EVENT GET
             for event in pygame.event.get():
-                self.get_event(event)
-                ui.get_event(event)
+                if self.get_event(event) == 'main_ui':
+                    main_ui = True
+                if self.get_event(event) == 'not_main_ui':
+                    main_ui = False
+                if ui.get_event(event) == 'CHANGE_STAGE':
+                    return
                 manager.process_events(event)
             manager.update(time_delta)
 
@@ -100,7 +105,8 @@ class MainMenuScreen(Screen):
             DISPLAYSURF.blit(title, (self.width / 2 - (title_rect[2] / 2), self.heigth / 9))
             DISPLAYSURF.blit(text_start, (self.width / 2 - (start_rect[2] / 2), self.heigth / 2))
             DISPLAYSURF.blit(text_quit, (self.width / 2 - (quit_rect[2] / 2), self.heigth * 3 / 5))
-            manager.draw_ui(DISPLAYSURF)
+            if not main_ui:
+                ui.draw(DISPLAYSURF, manager)
 
             # UPDATE (MUST CALL AT END OF LOOP)
             pygame.display.update()

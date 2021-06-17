@@ -1,6 +1,6 @@
 # ALL USER INTERFACE METHOD HERE
 from src.screens.main_menu_screen import *
-
+from src.constants import *
 
 # CLASS UserInterface
 class UserInterface:
@@ -24,7 +24,7 @@ class UserInterface:
                     self.menu.main.screen = self.menu.main.IN_GAME_SCREEN
                     print('Start game with seed:', self.seed_text_box.text)
                     mixer.stop()
-                    return
+                    return 'CHANGE_STAGE'
 
     def create_ui_01(self, manager, variance):
         if variance == 'SMALL_BOX_UI':
@@ -33,3 +33,10 @@ class UserInterface:
                                                           manager=manager)
             self.seed_text_box = pygame_gui.elements.UITextEntryLine(relative_rect=pygame.Rect((300, 400), (200, 50)),
                                                                      manager=manager)
+
+    def draw(self,DISPLAYSURF,manager):
+        frame = pygame.image.load(FRAME_IMG)
+        frame.convert()
+        frame = pygame.transform.scale(frame, (int(WIDTH/2), int(HEIGTH*5/6)))
+        DISPLAYSURF.blit(frame, (int(WIDTH/4), int(HEIGTH/10)))
+        manager.draw_ui(DISPLAYSURF)
