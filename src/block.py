@@ -5,3 +5,5 @@ class Block:
     def draw(self):
         # DO SMTHG HERE
         pass
+
+from pygame.examples import aliens
