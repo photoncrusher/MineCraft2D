@@ -16,7 +16,7 @@ UNSELECTED_COLOR = (0, 0, 0)
 BACKGROUND_AUDIO = os.path.join(main_dir, "../audio/bgr_audio.mp3")
 
 # FONT CONSTANTS
-FONT = "./font/AC.ttf"
+FONT = os.path.join(main_dir, "../font/AC.ttf")
 TILTE_FONT_SIZE = 90
 OPTION_FONT_SIZE = 40
 

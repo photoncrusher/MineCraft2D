@@ -4,7 +4,7 @@ from pygame.locals import *
 import pygame.mixer as mixer
 from src.animate import *
 import pygame_gui
-
+from src.screens.user_interfaces import *
 
 class MainMenuScreen(Screen):
     def __init__(self, main):
@@ -22,12 +22,31 @@ class MainMenuScreen(Screen):
         self.background_img = get_animated(constants.ANIMATED_IMG)
         self.credit = constants.CREDIT_IMG
         self.stage = 0
+        self.selected = 'start'
 
     # DEFINE THE TEXT FORMAT OF MENU
     def text_format(self, message, textFont, textSize, textColor):
         newFont = pygame.font.Font(textFont, textSize)
         newText = newFont.render(message, 0, textColor)
         return newText
+
+    def get_event(self,event):
+        if event.type == QUIT:
+            pygame.quit()
+            sys.exit()
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_UP:
+                self.selected = "start"
+            elif event.key == pygame.K_DOWN:
+                self.selected = "quit"
+            if event.key == pygame.K_RETURN:
+                if self.selected == "start":
+                    mixer.stop()
+                    self.main.screen = self.main.IN_GAME_SCREEN
+                    return
+                if self.selected == "quit":
+                    pygame.quit()
+                    quit()
 
     def show(self):
         # SET THE DISPLAY SURFACE AND CAPTION
@@ -45,47 +64,16 @@ class MainMenuScreen(Screen):
         mixer.Channel(1).play(mixer.Sound(self.background_audio), loops=-1)
 
         # SET LOCAL VARIABLE FOR MENU STATUS
-
-        selected = 'start'
-
-        start_btn = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((350, 450), (100, 50)),
-                                                 text='START',
-                                                 manager=manager)
-        seed_text_box = pygame_gui.elements.UITextEntryLine(relative_rect=pygame.Rect((300, 400), (200, 50)),
-                                                            manager=manager)
-        seed_text_box.text = self.main.seed
+        ui = UserInterface(manager, self.main.seed,self)
 
         while True:
+            selected = self.selected
             time_delta = clock.tick(60) / 1000.0
 
             # CLICK X TO EXIT EVENT GET
             for event in pygame.event.get():
-                if event.type == QUIT:
-                    pygame.quit()
-                    sys.exit()
-                if event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_UP:
-                        selected = "start"
-                    elif event.key == pygame.K_DOWN:
-                        selected = "quit"
-                    if event.key == pygame.K_RETURN:
-                        if selected == "start":
-                            mixer.stop()
-                            self.main.screen = self.main.IN_GAME_SCREEN
-                            return
-                        if selected == "quit":
-                            pygame.quit()
-                            quit()
-
-                if event.type == pygame.USEREVENT:
-                    if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
-                        if event.ui_element == start_btn:
-                            self.main.seed = seed_text_box.text
-                            self.main.screen = self.main.IN_GAME_SCREEN
-                            print('Start game with seed:', seed_text_box.text)
-                            mixer.stop()
-                            return
-
+                self.get_event(event)
+                ui.get_event(event)
                 manager.process_events(event)
             manager.update(time_delta)
 
@@ -112,7 +100,6 @@ class MainMenuScreen(Screen):
             DISPLAYSURF.blit(title, (self.width / 2 - (title_rect[2] / 2), self.heigth / 9))
             DISPLAYSURF.blit(text_start, (self.width / 2 - (start_rect[2] / 2), self.heigth / 2))
             DISPLAYSURF.blit(text_quit, (self.width / 2 - (quit_rect[2] / 2), self.heigth * 3 / 5))
-
             manager.draw_ui(DISPLAYSURF)
 
             # UPDATE (MUST CALL AT END OF LOOP)
