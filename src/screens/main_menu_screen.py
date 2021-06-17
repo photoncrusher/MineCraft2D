@@ -65,7 +65,8 @@ class MainMenuScreen(Screen):
         mixer.Channel(1).play(mixer.Sound(self.background_audio), loops=-1)
 
         # SET LOCAL VARIABLE FOR MENU STATUS
-        ui = UserInterface(manager, self.main.seed,self)
+        ui = UserInterface(manager, self)
+        ui.create_ui_01(manager,'SMALL_BOX_UI')
         main_ui = True
         while True:
             selected = self.selected

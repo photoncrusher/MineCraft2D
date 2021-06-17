@@ -1,18 +1,12 @@
 # ALL USER INTERFACE METHOD HERE
 from src.screens.main_menu_screen import *
 from src.constants import *
-
+import pygame
 # CLASS UserInterface
 class UserInterface:
-    def __init__(self, manager, seed, menu):
+    def __init__(self, manager, menu):
         self.manager = manager
         self.selected = 'start'
-        self.start_btn = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((350, 450), (100, 50)),
-                                                      text='START',
-                                                      manager=manager)
-        self.seed_text_box = pygame_gui.elements.UITextEntryLine(relative_rect=pygame.Rect((300, 400), (200, 50)),
-                                                                 manager=manager)
-        self.seed_text_box.text = seed
         self.menu = menu
         pass
 
@@ -33,6 +27,12 @@ class UserInterface:
                                                           manager=manager)
             self.seed_text_box = pygame_gui.elements.UITextEntryLine(relative_rect=pygame.Rect((300, 400), (200, 50)),
                                                                      manager=manager)
+
+        if variance == 'PAUSE_GAME_UI':
+            self.start_btn = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((350, 450), (100, 50)),
+                                                          text='CONTINUE',
+                                                          manager=manager)
+            # self.seed_text_box = None
 
     def draw(self,DISPLAYSURF,manager):
         frame = pygame.image.load(FRAME_IMG)
