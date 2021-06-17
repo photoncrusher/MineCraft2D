@@ -22,3 +22,10 @@ def get_animated(gif_file_path):
     for i in range(0,len(background)):
         background[i] = pygame.transform.scale(background[i], (constants.WIDTH, constants.HEIGTH))
     return background
+
+def get_a(gif_file_path,w,h):
+    background = []
+    background = split_animated_gif(gif_file_path)
+    for i in range(0,len(background)):
+        background[i] = pygame.transform.scale(background[i], (w, h))
+    return background

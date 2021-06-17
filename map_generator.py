@@ -9,7 +9,7 @@ class Perlin:
         self.gradients = [(float(d)/4.5-1) for d in str(hash(seed))[1:]]
 
 
-    def valueAt(self, t):
+    def valueAt(self, t) -> object:
         if t < self.lowerBound:
             print("Error: Input parameter is out of bounds!")
             return

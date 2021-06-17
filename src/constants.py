@@ -24,3 +24,11 @@ OPTION_FONT_SIZE = 40
 ANIMATED_IMG = os.path.join(main_dir, "../img/bgr_gif.gif")
 CREDIT_IMG = os.path.join(main_dir, "../img/credit.jpg")
 FRAME_IMG = os.path.join(main_dir, "../img/khung.jpg")
+PLAYER_IMG = os.path.join(main_dir, "../assets/minecraft_player.gif")
+
+# MAP CONSTANTS
+BLOCK_SIZE = 20
+
+# ASSETS
+LANDSCAPE = os.path.join(main_dir, "../assets/landscape.jpg")
+DIRT = os.path.join(main_dir, "../assets/dirt.jpg")
