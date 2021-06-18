@@ -3,7 +3,6 @@ from .screen import Screen
 from pygame.locals import *
 import pygame.mixer as mixer
 from src.animate import *
-import pygame_gui
 
 
 class MainMenuScreen(Screen):
@@ -33,9 +32,6 @@ class MainMenuScreen(Screen):
         # SET THE DISPLAY SURFACE AND CAPTION
         DISPLAYSURF = self.main.window
 
-        manager = pygame_gui.UIManager((self.width, self.heigth))
-        clock = pygame.time.Clock()
-
         # SET THE BACKGROUND IMAGE IN HOMESCREEN
         background = self.background_img
         index = 0.0
@@ -48,17 +44,7 @@ class MainMenuScreen(Screen):
 
         selected = 'start'
 
-        start_btn = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((350, 450), (100, 50)),
-                                                 text='START',
-                                                 manager=manager)
-        seed_text_box = pygame_gui.elements.UITextEntryLine(relative_rect=pygame.Rect((300, 400), (200, 50)),
-                                                            manager=manager)
-        seed_text_box.text = self.main.seed
-
         while True:
-            time_delta = clock.tick(60) / 1000.0
-
-            # CLICK X TO EXIT EVENT GET
             for event in pygame.event.get():
                 if event.type == QUIT:
                     pygame.quit()
@@ -71,23 +57,20 @@ class MainMenuScreen(Screen):
                     if event.key == pygame.K_RETURN:
                         if selected == "start":
                             mixer.stop()
-                            self.main.screen = self.main.IN_GAME_SCREEN
+                            self.main.screen = self.main.START_OPTIONS_SCREEN
                             return
                         if selected == "quit":
                             pygame.quit()
                             quit()
 
-                if event.type == pygame.USEREVENT:
-                    if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
-                        if event.ui_element == start_btn:
-                            self.main.seed = seed_text_box.text
-                            self.main.screen = self.main.IN_GAME_SCREEN
-                            print('Start game with seed:', seed_text_box.text)
-                            mixer.stop()
-                            return
-
-                manager.process_events(event)
-            manager.update(time_delta)
+                # if event.type == pygame.USEREVENT:
+                #     if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
+                #         if event.ui_element == start_btn:
+                #             self.main.seed = seed_text_box.text
+                #             self.main.screen = self.main.IN_GAME_SCREEN
+                #             print('Start game with seed:', seed_text_box.text)
+                #             mixer.stop()
+                #             return
 
             # DRAW DISPLAY SURFACE: BACKGOUND COLOR, BACKGROUND IMAGE OF HOMESCREEN
             DISPLAYSURF.fill(self.background_color)
@@ -112,8 +95,6 @@ class MainMenuScreen(Screen):
             DISPLAYSURF.blit(title, (self.width / 2 - (title_rect[2] / 2), self.heigth / 9))
             DISPLAYSURF.blit(text_start, (self.width / 2 - (start_rect[2] / 2), self.heigth / 2))
             DISPLAYSURF.blit(text_quit, (self.width / 2 - (quit_rect[2] / 2), self.heigth * 3 / 5))
-
-            manager.draw_ui(DISPLAYSURF)
 
             # UPDATE (MUST CALL AT END OF LOOP)
             pygame.display.update()

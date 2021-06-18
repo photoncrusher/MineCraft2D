@@ -1,5 +1,5 @@
 import pygame
-from screens import SplashScreen, MainMenuScreen, InGameScreen
+from screens import SplashScreen, MainMenuScreen, InGameScreen, StartOptionScreen
 import constants
 import os
 
@@ -20,7 +20,7 @@ class Main:
         self.splash_screen = SplashScreen(self)
         self.main_menu = MainMenuScreen(self)
         self.in_game = InGameScreen(self)
-
+        self.start_options_screen = StartOptionScreen(self)
         # Set start screen
         self.screen = Main.SPLASH_SCREEN
 
@@ -30,7 +30,7 @@ class Main:
     SPLASH_SCREEN = 0
     MAIN_MENU_SCREEN = 1
     IN_GAME_SCREEN = 2
-    PAUSE_GAME_SCREEN = 3
+    START_OPTIONS_SCREEN = 3
 
     def run(self):
         while 1:
@@ -40,8 +40,8 @@ class Main:
                 self.main_menu.show()
             elif self.screen == Main.IN_GAME_SCREEN:
                 self.in_game.show()
-            elif self.screen == Main.PAUSE_GAME_SCREEN:
-                pass
+            elif self.screen == Main.START_OPTIONS_SCREEN:
+                self.start_options_screen.show()
 
 
 if __name__ == '__main__':

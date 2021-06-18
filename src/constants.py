@@ -16,10 +16,12 @@ UNSELECTED_COLOR = (0, 0, 0)
 BACKGROUND_AUDIO = os.path.join(main_dir, "../audio/bgr_audio.mp3")
 
 # FONT CONSTANTS
-FONT = "./font/AC.ttf"
+FONT = os.path.join(main_dir, "../font/AC.ttf")
 TILTE_FONT_SIZE = 90
 OPTION_FONT_SIZE = 40
 
 # IMG CONSTANTS
 ANIMATED_IMG = os.path.join(main_dir, "../img/bgr_gif.gif")
 CREDIT_IMG = os.path.join(main_dir, "../img/credit.jpg")
+FRAME_IMG = os.path.join(main_dir, "../img/khung.jpg")
+START_OPTION_BG_IMG = os.path.join(main_dir, "../img/wall.jpg")
