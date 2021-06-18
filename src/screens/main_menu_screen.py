@@ -20,12 +20,33 @@ class MainMenuScreen(Screen):
         self.background_img = get_animated(constants.ANIMATED_IMG)
         self.credit = constants.CREDIT_IMG
         self.stage = 0
+        self.selected = 'start'
 
     # DEFINE THE TEXT FORMAT OF MENU
     def text_format(self, message, textFont, textSize, textColor):
         newFont = pygame.font.Font(textFont, textSize)
         newText = newFont.render(message, 0, textColor)
         return newText
+
+    def get_event(self,event):
+        if event.type == QUIT:
+            pygame.quit()
+            sys.exit()
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_UP:
+                self.selected = "start"
+            elif event.key == pygame.K_DOWN:
+                self.selected = "quit"
+            elif event.key == pygame.K_ESCAPE:
+                return 'main_ui'
+            if event.key == pygame.K_RETURN:
+                if self.selected == "start":
+                    mixer.stop()
+                    self.main.screen = self.main.IN_GAME_SCREEN
+                    return 'not_main_ui'
+                if self.selected == "quit":
+                    pygame.quit()
+                    quit()
 
     def show(self):
         # SET THE DISPLAY SURFACE AND CAPTION
@@ -62,14 +83,6 @@ class MainMenuScreen(Screen):
                             pygame.quit()
                             quit()
 
-                # if event.type == pygame.USEREVENT:
-                #     if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
-                #         if event.ui_element == start_btn:
-                #             self.main.seed = seed_text_box.text
-                #             self.main.screen = self.main.IN_GAME_SCREEN
-                #             print('Start game with seed:', seed_text_box.text)
-                #             mixer.stop()
-                #             return
 
             # DRAW DISPLAY SURFACE: BACKGOUND COLOR, BACKGROUND IMAGE OF HOMESCREEN
             DISPLAYSURF.fill(self.background_color)
