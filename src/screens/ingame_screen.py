@@ -15,6 +15,7 @@ class InGameScreen(Screen):
         super().__init__(main)
         self.width = WIDTH
         self.heigth = HEIGTH
+        self.day_sky = pygame.transform.scale(pygame.image.load(SKY).convert(),(WIDTH,HEIGTH))
 
     def show(self):
         game = GameEngine(self.main.seed)
@@ -26,46 +27,25 @@ class InGameScreen(Screen):
         text2 = myfont.render(f'Seed: {self.main.seed}', True, (255, 0, 0))
         pause = False
         clock = pygame.time.Clock()
-        x = 1000
-        y = 0
-        moveLeft = False
-        moveRight = False
-        limit_x = WIDTH / 20
-        index = 0
         while True:
             time_delta = clock.tick(60) / 1000.0
             for event in pygame.event.get():
                 if event.type == QUIT:
                     pygame.quit()
                     sys.exit()
-                if event.type == pygame.KEYDOWN or moveLeft or moveRight:
-                    if event.key == pygame.K_ESCAPE:
-                        self.main.screen = self.main.MAIN_MENU_SCREEN
-                        return
-                    if event.key == pygame.K_RETURN:
-                        pause = True
-                    if event.key == pygame.K_LEFT:
-                        moveLeft = True
-                    if event.key == pygame.K_RIGHT:
-                        moveRight = True
-                if event.type == pygame.KEYUP:
-                    moveRight = False
-                    index = 0
-                    moveLeft = False
+                game.get_event(event)
                 manager.process_events(event)
-            if moveRight:
-                x = x + WIDTH / 300
-                index = (index + 0.5) % (len(game.player.image))
-            if moveLeft:
-                x = x - WIDTH / 300
             manager.update(time_delta)
             window.fill((255, 255, 255))
-            window.blit(text2, (50, 150))
+            window.blit(self.day_sky,(0,0))
+
             if pause:
                 ui.draw(window, manager)
-            x = game.draw(window, x, y, index)[0]
-            y = game.draw(window, x, y, index)[1]
-            text1 = myfont.render('x: ' + str(round(x/20, 2)) + ', y: ' + str(round(y/20, 2)), True, (0, 0, 0))
-            window.blit(text1, (50, 50))
+            x_y = game.draw(window)
+            text1 = myfont.render('x: ' + str(round(x_y[0]/20, 2)) + ', y: ' + str(round(x_y[1]/20, 2)), True, (0, 0, 0))
+            text3 = myfont.render('stat: '+str(x_y[3]), True, (255, 0, 0))
+            window.blit(text1, (30, 30))
+            window.blit(text2, (30, 60))
+            window.blit(text3, (30, 90))
 
             pygame.display.update()

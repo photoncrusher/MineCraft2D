@@ -32,3 +32,4 @@ BLOCK_SIZE = 20
 # ASSETS
 LANDSCAPE = os.path.join(main_dir, "../assets/landscape.jpg")
 DIRT = os.path.join(main_dir, "../assets/dirt.jpg")
+SKY = os.path.join(main_dir, "../assets/sky.jpg")

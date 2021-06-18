@@ -14,6 +14,7 @@ class Block:
             self.asset = self.landscape_asset
         if block_type == 'DIRT':
             self.asset = self.dirt_asset
+
     # VE CAC BLOCK SAU KHI DA TINH TIEN NGANG/ DOC MOT DOAN X,Y. TRONG DO X,Y TINH THEO ORIGINAL
     def get_block_rect(self, block_num1, block_num2, screen_x, screen_y):
         x = self.block_size * block_num1 + screen_x
