@@ -25,3 +25,5 @@ ANIMATED_IMG = os.path.join(main_dir, "../img/bgr_gif.gif")
 CREDIT_IMG = os.path.join(main_dir, "../img/credit.jpg")
 FRAME_IMG = os.path.join(main_dir, "../img/khung.jpg")
 START_OPTION_BG_IMG = os.path.join(main_dir, "../img/wall.jpg")
+
+UI_BUTTON_PRESS = 0

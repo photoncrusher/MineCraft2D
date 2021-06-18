@@ -4,7 +4,6 @@ from pygame.locals import *
 import pygame.mixer as mixer
 from src.animate import *
 
-
 class MainMenuScreen(Screen):
     def __init__(self, main):
         super().__init__(main)

@@ -4,14 +4,15 @@ import src.constants as const
 
 
 class Button(UIElement):
-    def __init__(self, relative_rect, text, manager, onclick):
+    def __init__(self, relative_rect, text, manager):
         super().__init__(relative_rect, manager)
         self.text = text
-        self.onclick = onclick
         self.font = pygame.font.Font(const.FONT, 30)
         self.bg_color = (0, 0, 0)
         self.hover_color = (120, 160, 80)
+        self.press_color = (100, 140, 60)
         self.hover = False
+        self.pressing = False
 
     def process_event(self, event):
         if self.rect.collidepoint(pygame.mouse.get_pos()):
@@ -19,13 +20,20 @@ class Button(UIElement):
         else:
             self.hover = False
 
-        if self.hover:
-            if event.type == pygame.MOUSEBUTTONUP:
-                self.onclick()
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            if self.hover:
+                self.pressing = True
+        elif event.type == pygame.MOUSEBUTTONUP:
+            if self.pressing:
+                e = pygame.event.Event(pygame.USEREVENT, user_type=const.UI_BUTTON_PRESS)
+                pygame.event.post(e)
+            self.pressing = False
 
     def render(self):
         surface = pygame.Surface((self.rect.w, self.rect.h))
-        if self.hover:
+        if self.pressing:
+            color = self.press_color
+        elif self.hover:
             color = self.hover_color
         else:
             color = self.bg_color

@@ -35,11 +35,11 @@ class StartOptionScreen(Screen):
 
         rect = Rect(0, 0, 200, 40)
         rect.midleft = (const.WIDTH / 8 * 3, const.HEIGTH / 10 * 2)
-        TextBox(rect, manager, init_text="12345")
+        self.seed_textbox = TextBox(rect, manager, init_text="12345")
 
         rect = Rect(0, 0, 100, 40)
         rect.midleft = (const.WIDTH / 8 * 3, const.HEIGTH / 10 * 3)
-        Button(rect, "START", manager, onclick=lambda: print("Làm sao để chuyển màn bây giờ?"))
+        Button(rect, "START", manager)
 
     def show(self):
         window = self.main.window
@@ -51,7 +51,10 @@ class StartOptionScreen(Screen):
                 if event.type == QUIT:
                     pygame.quit()
                     sys.exit()
-
+                if event.type == USEREVENT:
+                    self.main.screen = self.main.IN_GAME_SCREEN
+                    self.main.seed = self.seed_textbox.text
+                    return
                 self.manager.process_event(event)
 
             self.manager.draw_ui(window)
