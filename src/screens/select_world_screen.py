@@ -18,10 +18,10 @@ class SelectWorldScreen(Screen):
         rect = Rect(0, 80, const.WIDTH, const.HEIGTH - 120)
         self.world_list_selection = ListSelection(rect, self.manager, const.BLACK)
 
-        world_item_1 = ListItem(Rect(0, 0, 200, 80), "world 1", self.manager)
-        world_item_2 = ListItem(Rect(0, 0, 200, 80), "world 2", self.manager)
-        world_item_3 = ListItem(Rect(0, 0, 200, 80), "world 3", self.manager)
-        world_item_4 = ListItem(Rect(0, 0, 200, 80), "world 4", self.manager)
+        world_item_1 = ListItem((200, 80), "world 1", self.manager)
+        world_item_2 = ListItem((200, 80), "world 2", self.manager)
+        world_item_3 = ListItem((200, 80), "world 3", self.manager)
+        world_item_4 = ListItem((200, 80), "world 4", self.manager)
         self.world_list_selection.add_items(world_item_1, world_item_2, world_item_3, world_item_4)
 
     def show(self):

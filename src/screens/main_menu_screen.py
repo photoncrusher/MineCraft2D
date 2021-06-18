@@ -33,6 +33,7 @@ class MainMenuScreen(Screen):
         rect.center = (const.WIDTH / 2, const.HEIGTH / 10 * 7)
         self.option_btn = Button(rect, "Options...", self.manager)
 
+
     def show(self):
         window = self.main.window
 

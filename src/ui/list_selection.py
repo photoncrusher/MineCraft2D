@@ -1,5 +1,4 @@
-from typing import List
-
+from typing import List, Tuple
 from .ui_element import UIElement
 import pygame
 from pygame.locals import *
@@ -9,8 +8,8 @@ import src.constants as const
 class ListItem(UIElement):
     """Item for List Selection class"""
 
-    def __init__(self, relative_rect: Rect, text, manager):
-        super().__init__(relative_rect, manager)
+    def __init__(self, size: Tuple[int, int], text, manager):
+        super().__init__(Rect((0, 0), size), manager)
         self.font = pygame.font.Font(const.FONT, const.OPTION_FONT_SIZE)
         self.text = text
         self.bg_color = const.GREY
@@ -18,6 +17,7 @@ class ListItem(UIElement):
         self.is_selected = False
         self.hover_color = const.LIGHT_BLUE
         self.is_hover = False
+        self.parent = None
 
     def process_event(self, event):
         if self.rect.collidepoint(pygame.mouse.get_pos()):
@@ -28,6 +28,7 @@ class ListItem(UIElement):
         if event.type == pygame.MOUSEBUTTONDOWN:
             if self.is_hover:
                 self.is_selected = True
+                self.parent.select(self)
 
     def render(self):
         surf = pygame.Surface((self.rect.w, self.rect.h))
@@ -66,34 +67,44 @@ class ListSelection(UIElement):
         self.bg_color = bg_color or const.BLACK
         self.items = []
         self.selected_item = None
+        self.surf = self.render()
 
     def add_item(self, item: ListItem):
         self.items.append(item)
+        self.place_items()
+        item.parent = self
 
     def add_items(self, *args: ListItem):
         for item in args:
-            self.items.append(item)
+            self.add_item(item)
+
+    def place_items(self):
+        x = self.rect.width / 2
+        y = self.rect.y
+        gap = 5
+        for item in self.items:
+            rect = item.rect
+            rect.midtop = (x, y)
+            y += rect.h + gap
 
     def process_event(self, event):
         # TODO:
         pass
+
+    def select(self, item):
+        if self.selected_item:
+            if item != self.selected_item:
+                self.selected_item.is_selected = False
+        self.selected_item = item
 
     def render(self):
         surf = pygame.Surface((self.rect.w, self.rect.h))
 
         # Background
         surf.fill(self.bg_color)
-
-        # Render items
-        x = self.rect.width / 2
-        y = 0
-        gap = 5
-        for item in self.items:
-            item_surf = item.render()
-            rect = item_surf.get_rect()
-            rect.midtop = (x, y)
-            item.rect = rect
-            surf.blit(item_surf, rect)
-            y += rect.h + gap
-
         return surf
+
+    def draw(self, window):
+        window.blit(self.surf, self.rect)
+        for item in self.items:
+            window.blit(item.render(), item.rect)

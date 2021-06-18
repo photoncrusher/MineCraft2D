@@ -10,8 +10,8 @@ class UIElement():
 
         self.manager.add_element(self)
 
-    def draw(self, window):
-        window.blit(self.render(), self.rect)
+    def draw(self, surface):
+        surface.blit(self.render(), self.rect)
 
     @abstractmethod
     def process_event(self, event):
