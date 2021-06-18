@@ -25,7 +25,7 @@ class Button(UIElement):
                 self.pressing = True
         elif event.type == pygame.MOUSEBUTTONUP:
             if self.pressing:
-                e = pygame.event.Event(pygame.USEREVENT, user_type=const.UI_BUTTON_PRESS)
+                e = pygame.event.Event(pygame.USEREVENT, user_type=const.UI_BUTTON_PRESS, ui_element=self)
                 pygame.event.post(e)
             self.pressing = False
 

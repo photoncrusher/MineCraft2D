@@ -1,8 +1,10 @@
 from abc import ABC, abstractmethod
+from .manager import Manager
+from pygame.locals import *
 
 
 class UIElement():
-    def __init__(self, relative_rect, manager):
+    def __init__(self, relative_rect: Rect, manager: Manager):
         self.rect = relative_rect
         self.manager = manager
 

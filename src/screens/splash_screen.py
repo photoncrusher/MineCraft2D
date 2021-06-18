@@ -29,6 +29,6 @@ class SplashScreen(Screen):
                     pygame.quit()
                     sys.exit()
 
-            window.fill(const.BACKGROUND_COLOR)
+            window.fill(const.WHITE)
             window.blit(credit, (0, 0))
             pygame.display.update()

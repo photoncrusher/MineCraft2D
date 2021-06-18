@@ -13,14 +13,9 @@ class StartOptionScreen(Screen):
         super().__init__(main)
         self.bg_surface = pygame.image.load(const.START_OPTION_BG_IMG).convert()
 
-        self.manager = Manager((const.WIDTH, const.HEIGTH))
-        self.create_ui(self.manager)
+    def create_ui(self):
+        self.manager = manager = Manager((const.WIDTH, const.HEIGTH))
 
-    def start_btn_onclick(self):
-        self.main.screen = self.main.IN_GAME_SCREEN
-
-
-    def create_ui(self, manager):
         rect = Rect(0, 0, 120, 40)
         rect.midleft = (const.WIDTH / 8, const.HEIGTH / 10)
         Label(rect, "Player name", manager)
@@ -39,11 +34,11 @@ class StartOptionScreen(Screen):
 
         rect = Rect(0, 0, 100, 40)
         rect.midleft = (const.WIDTH / 8 * 3, const.HEIGTH / 10 * 3)
-        Button(rect, "START", manager)
+        self.start_btn = Button(rect, "START", manager)
 
     def show(self):
         window = self.main.window
-
+        self.create_ui()
         while True:
             window.blit(self.bg_surface, (0, 0))
 
@@ -52,9 +47,12 @@ class StartOptionScreen(Screen):
                     pygame.quit()
                     sys.exit()
                 if event.type == USEREVENT:
-                    self.main.screen = self.main.IN_GAME_SCREEN
-                    self.main.seed = self.seed_textbox.text
-                    return
+                    if event.user_type == const.UI_BUTTON_PRESS:
+                        if event.ui_element == self.start_btn:
+                            self.main.screen = self.main.IN_GAME_SCREEN
+                            self.main.seed = self.seed_textbox.text
+                            return
+
                 self.manager.process_event(event)
 
             self.manager.draw_ui(window)
