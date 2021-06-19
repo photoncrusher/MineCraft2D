@@ -1,16 +1,18 @@
 from .ui_element import UIElement
 import pygame
+from pygame.locals import *
 import src.constants as const
+from src.draw import draw_inside_border
 
 
 class Button(UIElement):
-    def __init__(self, relative_rect, text, manager):
+    def __init__(self, relative_rect, text, manager, bg_color=None, hover_color=None, press_color=None):
         super().__init__(relative_rect, manager)
         self.text = text
-        self.font = pygame.font.Font(const.FONT, 30)
-        self.bg_color = (0, 0, 0)
-        self.hover_color = (120, 160, 80)
-        self.press_color = (100, 140, 60)
+        self.font = pygame.font.Font(const.FONT, const.DEFAULT_FONT_SIZE)
+        self.bg_color = bg_color or (0, 0, 0)
+        self.hover_color = hover_color or const.BTN_HOVER_COLOR
+        self.press_color = press_color or const.BTN_PRESSED_COLOR
         self.hover = False
         self.pressing = False
 
@@ -39,11 +41,9 @@ class Button(UIElement):
             color = self.bg_color
 
         # Fill background
-        pygame.draw.rect(surface, color, surface.get_rect(), width=0, border_radius=5)
+        pygame.draw.rect(surface, color, surface.get_rect(), width=0, border_radius=0)
 
-        # Draw border
-        border_color = (200, 200, 200)
-        pygame.draw.rect(surface, border_color, surface.get_rect(), width=2, border_radius=5)
+        draw_inside_border(surface, 2, const.WHITE)
 
         # Draw text
         text = self.font.render(self.text, True, (255, 255, 255))

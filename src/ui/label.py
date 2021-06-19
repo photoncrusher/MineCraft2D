@@ -7,7 +7,7 @@ class Label(UIElement):
     def __init__(self, relative_rect, text, manager, color=None, font=None, antialias=None):
         super().__init__(relative_rect, manager)
         self.text = text
-        self.font = font or pygame.font.Font(const.FONT, 30)
+        self.font = font or pygame.font.Font(const.FONT, const.DEFAULT_FONT_SIZE)
         self.color = color or (255, 255, 255)
         self.antialias = antialias or True
 

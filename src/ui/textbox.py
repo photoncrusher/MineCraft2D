@@ -7,7 +7,7 @@ class TextBox(UIElement):
     def __init__(self, relative_rect, manager, init_text=None, text_color=None, bg_color=None, font=None):
         super().__init__(relative_rect, manager)
         self.text_color = text_color or (255, 255, 255)
-        self.font = font or pygame.font.Font(const.FONT, 30)
+        self.font = font or pygame.font.Font(const.FONT, const.DEFAULT_FONT_SIZE)
         self.bg_color = bg_color or (0, 0, 0)
         self.hover_color = (20, 20, 20)
         self.focus_color = (40, 80, 80)

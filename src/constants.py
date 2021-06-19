@@ -11,16 +11,21 @@ NAME = "MINECRAFT 2D"
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 GREY = (100, 100, 100)
+LIGHT_GREY = (150, 150, 150)
+LIGHTER_GREY = (200, 200, 200)
+DARK_GREY = (80, 80, 80)
 LIGHT_BLUE = (173, 216, 230)
 DODGER_BLUE = (30, 144, 255)
+
+BTN_HOVER_COLOR = (120, 160, 80)
+BTN_PRESSED_COLOR = (100, 140, 60)
 
 # AUDIO CONSTANTS
 BACKGROUND_AUDIO = os.path.join(main_dir, "../audio/bgr_audio.mp3")
 
 # FONT CONSTANTS
-FONT = os.path.join(main_dir, "../font/AC.ttf")
-TILTE_FONT_SIZE = 90
-OPTION_FONT_SIZE = 40
+FONT = os.path.join(main_dir, "../font/Minecraft.ttf")
+DEFAULT_FONT_SIZE = 20
 
 # IMG CONSTANTS
 ANIMATED_IMG = os.path.join(main_dir, "../img/bgr_gif.gif")

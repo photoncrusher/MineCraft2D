@@ -3,6 +3,7 @@ from .ui_element import UIElement
 import pygame
 from pygame.locals import *
 import src.constants as const
+from src.draw import draw_inside_border
 
 
 class ListItem(UIElement):
@@ -10,12 +11,12 @@ class ListItem(UIElement):
 
     def __init__(self, size: Tuple[int, int], text, manager):
         super().__init__(Rect((0, 0), size), manager)
-        self.font = pygame.font.Font(const.FONT, const.OPTION_FONT_SIZE)
+        self.font = pygame.font.Font(const.FONT, const.DEFAULT_FONT_SIZE)
         self.text = text
         self.bg_color = const.GREY
-        self.selected_color = const.DODGER_BLUE
+        self.selected_color = const.LIGHTER_GREY
         self.is_selected = False
-        self.hover_color = const.LIGHT_BLUE
+        self.hover_color = const.LIGHT_GREY
         self.is_hover = False
         self.parent = None
 
@@ -42,10 +43,7 @@ class ListItem(UIElement):
             surf.fill(self.bg_color)
 
         # Border
-        border_width = 2
-        x, y, w, h = surf.get_rect()
-        rect = Rect(x + border_width, y + border_width, w - 2 * border_width, h - 2 * border_width)
-        pygame.draw.rect(surf, const.WHITE, rect, width=border_width)
+        draw_inside_border(surf, 2, const.LIGHT_GREY)
 
         # Text
         text = self.font.render(self.text, True, const.WHITE)
@@ -63,7 +61,7 @@ class ListItem(UIElement):
 class ListSelection(UIElement):
     def __init__(self, relative_rect: Rect, manager, bg_color=None, font=None):
         super().__init__(relative_rect, manager)
-        self.font = font or pygame.font.Font(const.FONT, 30)
+        self.font = font or pygame.font.Font(const.FONT, const.DEFAULT_FONT_SIZE)
         self.bg_color = bg_color or const.BLACK
         self.items = []
         self.selected_item = None
@@ -88,14 +86,23 @@ class ListSelection(UIElement):
             y += rect.h + gap
 
     def process_event(self, event):
-        # TODO:
-        pass
+        if event.type == pygame.KEYDOWN:
+            if event.key == K_UP:
+                current_idx = self.items.index(self.selected_item)
+                idx = max(0, current_idx - 1)
+                self.select(self.items[idx])
+            elif event.key == K_DOWN:
+                current_idx = self.items.index(self.selected_item)
+                idx = min(len(self.items) - 1, current_idx + 1)
+                self.select(self.items[idx])
 
     def select(self, item):
         if self.selected_item:
             if item != self.selected_item:
                 self.selected_item.is_selected = False
         self.selected_item = item
+        if not item.is_selected:
+            item.is_selected = True
 
     def render(self):
         surf = pygame.Surface((self.rect.w, self.rect.h))

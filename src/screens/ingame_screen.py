@@ -17,23 +17,17 @@ class InGameScreen(Screen):
 
     def show(self):
         game = GameEngine(self.main.seed)
-        # manager = pygame_gui.UIManager((self.width, self.heigth))
-        # ui = UserInterface(manager, self)
-        # ui.create_ui_01(manager, 'PAUSE_GAME_UI')
         window = self.main.window
-        myfont = pygame.font.Font(const.FONT, 30)
+        myfont = pygame.font.Font(const.FONT, const.DEFAULT_FONT_SIZE)
         text2 = myfont.render(f'Seed: {self.main.seed}', True, (255, 0, 0))
         pause = False
-        clock = pygame.time.Clock()
+
         while True:
-            time_delta = clock.tick(60) / 1000.0
             for event in pygame.event.get():
                 if event.type == QUIT:
                     pygame.quit()
                     sys.exit()
                 game.get_event(event)
-                # manager.process_events(event)
-            # manager.update(time_delta)
             window.fill((255, 255, 255))
             window.blit(self.day_sky,(0,0))
 

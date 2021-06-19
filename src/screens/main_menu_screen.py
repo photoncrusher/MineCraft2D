@@ -61,7 +61,8 @@ class MainMenuScreen(Screen):
                         if event.ui_element == self.multiplayer_btn:
                             print("Multiplayer coming soon...")
                         if event.ui_element == self.option_btn:
-                            self.main.screen = self.main.OPTION_SCREEN
+                            # self.main.screen = self.main.OPTION_SCREEN
+                            print("Coming soon...")
                             return
 
                 self.manager.process_event(event)
