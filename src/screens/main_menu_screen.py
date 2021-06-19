@@ -6,7 +6,7 @@ import pygame.mixer as mixer
 import src.constants as const
 from src.animate import get_animated
 from src.ui import Button, Manager
-from src import state
+from src import state, prepare
 
 
 class MainMenuScreen(Screen):
@@ -19,22 +19,22 @@ class MainMenuScreen(Screen):
         self.manager = Manager((const.WIDTH, const.HEIGTH))
 
         # Single player button
-        rect = Rect(0, 0, 200, 40)
+        rect = Rect(0, 0, 350, 40)
         rect.center = (const.WIDTH / 2, const.HEIGTH / 10 * 5)
         self.single_player_btn = Button(rect, "Singleplayer", self.manager)
 
         # Multiplayer button
-        rect = Rect(0, 0, 200, 40)
+        rect = Rect(0, 0, 350, 40)
         rect.center = (const.WIDTH / 2, const.HEIGTH / 10 * 6)
         self.multiplayer_btn = Button(rect, "Multiplayer", self.manager)
 
         # Option button
-        rect = Rect(0, 0, 200, 40)
+        rect = Rect(0, 0, 350, 40)
         rect.center = (const.WIDTH / 2, const.HEIGTH / 10 * 7)
         self.option_btn = Button(rect, "Options...", self.manager)
 
         # Quit button
-        rect = Rect(0, 0, 200, 40)
+        rect = Rect(0, 0, 350, 40)
         rect.center = (const.WIDTH / 2, const.HEIGTH / 10 * 8)
         self.quit_btn = Button(rect, "Quit", self.manager)
 
@@ -80,5 +80,4 @@ class MainMenuScreen(Screen):
 
             # Draw UI
             self.manager.draw_ui(window)
-
             pygame.display.update()

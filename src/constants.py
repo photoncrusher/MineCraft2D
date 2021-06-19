@@ -17,9 +17,6 @@ DARK_GREY = (80, 80, 80)
 LIGHT_BLUE = (173, 216, 230)
 DODGER_BLUE = (30, 144, 255)
 
-BTN_HOVER_COLOR = (120, 160, 80)
-BTN_PRESSED_COLOR = (100, 140, 60)
-
 # AUDIO CONSTANTS
 BACKGROUND_AUDIO = os.path.join(main_dir, "../audio/bgr_audio.mp3")
 
@@ -42,12 +39,19 @@ LANDSCAPE = os.path.join(main_dir, "../assets/landscape.jpg")
 DIRT = os.path.join(main_dir, "../assets/dirt.jpg")
 SKY = os.path.join(main_dir, "../assets/sky.jpg")
 
-# EVENT CONSTANTS
-UI_BUTTON_PRESS = 0
-
 # SCREEN CONTANTS
 SPLASH_SCREEN = 0
 MAIN_MENU_SCREEN = 1
 IN_GAME_SCREEN = 2
 START_OPTIONS_SCREEN = 3
 SELECT_WORLD_SCREEN = 4
+
+# UI EVENT CONSTANTS
+UI_BUTTON_PRESS = 0
+
+# UI CONSTANTS
+BTN_HOVER_COLOR = (120, 160, 80)
+BTN_PRESSED_COLOR = (100, 140, 60)
+LONG_BTN_SIZE = (400, 40)
+
+UI_IMG_SCALE_RATIO = 2

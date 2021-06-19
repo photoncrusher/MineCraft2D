@@ -3,6 +3,7 @@ import pygame
 from pygame.locals import *
 import src.constants as const
 from src.draw import draw_inside_border
+from src import prepare
 
 
 class Button(UIElement):
@@ -10,11 +11,11 @@ class Button(UIElement):
         super().__init__(relative_rect, manager)
         self.text = text
         self.font = pygame.font.Font(const.FONT, const.DEFAULT_FONT_SIZE)
-        self.bg_color = bg_color or (0, 0, 0)
-        self.hover_color = hover_color or const.BTN_HOVER_COLOR
-        self.press_color = press_color or const.BTN_PRESSED_COLOR
         self.hover = False
         self.pressing = False
+        self.img = self.crop_and_scale_btn_img(prepare.btn_img)
+        self.hover_img = self.crop_and_scale_btn_img(prepare.hover_btn_img)
+        self.press_img = self.crop_and_scale_btn_img(prepare.press_btn_img)
 
     def process_event(self, event):
         if self.rect.collidepoint(pygame.mouse.get_pos()):
@@ -31,23 +32,30 @@ class Button(UIElement):
                 pygame.event.post(e)
             self.pressing = False
 
+    def crop_and_scale_btn_img(self, img):
+        width = self.rect.w / const.UI_IMG_SCALE_RATIO
+        surf = pygame.Surface((width, 20))
+        surf.fill((255, 0, 0))
+        btn_img = img
+        surf.blit(btn_img, (0, 0), Rect(0, 0, width - 2, 20))
+        surf.blit(btn_img, (width - 2, 0), Rect(198, 0, 2, 20))
+        return pygame.transform.scale(surf, (int(width * const.UI_IMG_SCALE_RATIO), 40))
+
     def render(self):
         surface = pygame.Surface((self.rect.w, self.rect.h))
+
+        # Blit background
         if self.pressing:
-            color = self.press_color
+            img = self.press_img
         elif self.hover:
-            color = self.hover_color
+            img = self.hover_img
         else:
-            color = self.bg_color
-
-        # Fill background
-        pygame.draw.rect(surface, color, surface.get_rect(), width=0, border_radius=0)
-
-        draw_inside_border(surface, 2, const.WHITE)
+            img = self.img
+        surface.blit(img, (0, 0))
 
         # Draw text
         text = self.font.render(self.text, True, (255, 255, 255))
         rect = text.get_rect()
-        rect.center = (self.rect.w / 2, self.rect.h / 2)
+        rect.center = (self.rect.w / 2, self.rect.h / 2 - 3)
         surface.blit(text, rect)
         return surface
