@@ -1,51 +1,43 @@
 import pygame
-from screens import SplashScreen, MainMenuScreen, InGameScreen, StartOptionScreen, SelectWorldScreen
-import constants
+from pygame.locals import *
 import os
+from .screens import SplashScreen, MainMenuScreen, InGameScreen, StartOptionScreen, SelectWorldScreen
+from . import constants as const
+from . import state
 
 
-class Main:
-    def __init__(self):
-        # Init
-        pygame.init()
-        pygame.font.init()
-        pygame.mixer.init()
+def main():
+    pygame.init()
+    pygame.font.init()
+    pygame.mixer.init()
 
-        # Setup window
-        self.window = pygame.display.set_mode((constants.WIDTH, constants.HEIGTH))
-        pygame.display.set_caption(constants.NAME)
-        os.environ['SDL_VIDEO_CENTERED'] = '1'
+    # Load data
+    # storage.load_data()
 
-        # Setup screens
-        self.splash_screen = SplashScreen(self)
-        self.main_menu = MainMenuScreen(self)
-        self.in_game = InGameScreen(self)
-        self.start_options_screen = StartOptionScreen(self)
-        self.select_world_screen = SelectWorldScreen(self)
-        # Set start screen
-        self.screen = Main.SPLASH_SCREEN
+    # Setup window
+    pygame.display.set_caption(const.NAME)
+    os.environ['SDL_VIDEO_CENTERED'] = '1'
 
-        # State variables
-        self.seed = "Default seed"
+    # Init screens
+    splash_screen = SplashScreen()
+    main_menu = MainMenuScreen()
+    in_game = InGameScreen()
+    start_options_screen = StartOptionScreen()
+    select_world_screen = SelectWorldScreen()
 
-    SPLASH_SCREEN = 0
-    MAIN_MENU_SCREEN = 1
-    IN_GAME_SCREEN = 2
-    START_OPTIONS_SCREEN = 3
-    SELECT_WORLD_SCREEN = 4
+    # Running
+    while 1:
+        if state.screen == const.SPLASH_SCREEN:
+            splash_screen.show()
+        if state.screen == const.MAIN_MENU_SCREEN:
+            main_menu.show()
+        elif state.screen == const.IN_GAME_SCREEN:
+            in_game.show()
+        elif state.screen == const.START_OPTIONS_SCREEN:
+            start_options_screen.show()
+        elif state.screen == const.SELECT_WORLD_SCREEN:
+            select_world_screen.show()
 
-    def run(self):
-        while 1:
-            if self.screen == Main.SPLASH_SCREEN:
-                self.splash_screen.show()
-            if self.screen == Main.MAIN_MENU_SCREEN:
-                self.main_menu.show()
-            elif self.screen == Main.IN_GAME_SCREEN:
-                self.in_game.show()
-            elif self.screen == Main.START_OPTIONS_SCREEN:
-                self.start_options_screen.show()
-            elif self.screen == Main.SELECT_WORLD_SCREEN:
-                self.select_world_screen.show()
 
 if __name__ == '__main__':
-    Main().run()
+    main()

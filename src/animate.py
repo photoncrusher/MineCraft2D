@@ -1,6 +1,6 @@
 from PIL import Image
 import pygame
-import constants
+from . import constants as const
 
 # SPLIT ANIMATED GIF IMAGE INTO LIST
 def split_animated_gif(gif_file_path):
@@ -20,7 +20,7 @@ def get_animated(gif_file_path):
     background = []
     background = split_animated_gif(gif_file_path)
     for i in range(0,len(background)):
-        background[i] = pygame.transform.scale(background[i], (constants.WIDTH, constants.HEIGTH))
+        background[i] = pygame.transform.scale(background[i], (const.WIDTH, const.HEIGTH))
     return background
 
 def get_a(gif_file_path,w,h):

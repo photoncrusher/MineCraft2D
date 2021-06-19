@@ -3,14 +3,12 @@ from pygame.locals import *
 import sys
 from .screen import Screen
 import src.constants as const
+from src import state
 
 
 class SplashScreen(Screen):
-    def __init__(self, main):
-        super().__init__(main)
-
     def show(self):
-        window = self.main.window
+        window = state.window
 
         credit = pygame.image.load(const.CREDIT_IMG)
         credit.convert()
@@ -21,7 +19,7 @@ class SplashScreen(Screen):
 
         while True:
             if pygame.time.get_ticks() - start_time > delay:
-                self.main.screen = self.main.MAIN_MENU_SCREEN
+                state.screen = const.MAIN_MENU_SCREEN
                 return
 
             for event in pygame.event.get():

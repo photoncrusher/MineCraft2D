@@ -24,8 +24,8 @@ BTN_PRESSED_COLOR = (100, 140, 60)
 BACKGROUND_AUDIO = os.path.join(main_dir, "../audio/bgr_audio.mp3")
 
 # FONT CONSTANTS
-FONT = os.path.join(main_dir, "../font/Minecraft.ttf")
-DEFAULT_FONT_SIZE = 20
+FONT = os.path.join(main_dir, "../font/minecraft_font.ttf")
+DEFAULT_FONT_SIZE = 16
 
 # IMG CONSTANTS
 ANIMATED_IMG = os.path.join(main_dir, "../img/bgr_gif.gif")
@@ -44,3 +44,10 @@ SKY = os.path.join(main_dir, "../assets/sky.jpg")
 
 # EVENT CONSTANTS
 UI_BUTTON_PRESS = 0
+
+# SCREEN CONTANTS
+SPLASH_SCREEN = 0
+MAIN_MENU_SCREEN = 1
+IN_GAME_SCREEN = 2
+START_OPTIONS_SCREEN = 3
+SELECT_WORLD_SCREEN = 4

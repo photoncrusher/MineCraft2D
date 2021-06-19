@@ -6,11 +6,11 @@ import pygame.mixer as mixer
 import src.constants as const
 from src.animate import get_animated
 from src.ui import Button, Manager
+from src import state
 
 
 class MainMenuScreen(Screen):
-    def __init__(self, main):
-        super().__init__(main)
+    def __init__(self):
         self.background_audio = const.BACKGROUND_AUDIO
         self.background_img = get_animated(const.ANIMATED_IMG)
         self.credit = const.CREDIT_IMG
@@ -33,9 +33,13 @@ class MainMenuScreen(Screen):
         rect.center = (const.WIDTH / 2, const.HEIGTH / 10 * 7)
         self.option_btn = Button(rect, "Options...", self.manager)
 
+        # Quit button
+        rect = Rect(0, 0, 200, 40)
+        rect.center = (const.WIDTH / 2, const.HEIGTH / 10 * 8)
+        self.quit_btn = Button(rect, "Quit", self.manager)
 
     def show(self):
-        window = self.main.window
+        window = state.window
 
         # SET THE BACKGROUND IMAGE IN HOMESCREEN
         background = self.background_img
@@ -55,15 +59,18 @@ class MainMenuScreen(Screen):
                 if event.type == USEREVENT:
                     if event.user_type == const.UI_BUTTON_PRESS:
                         if event.ui_element == self.single_player_btn:
-                            self.main.screen = self.main.SELECT_WORLD_SCREEN
+                            state.screen = const.SELECT_WORLD_SCREEN
                             mixer.stop()
                             return
                         if event.ui_element == self.multiplayer_btn:
                             print("Multiplayer coming soon...")
                         if event.ui_element == self.option_btn:
-                            # self.main.screen = self.main.OPTION_SCREEN
+                            # state.screen = state.OPTION_SCREEN
                             print("Coming soon...")
                             return
+                        if event.ui_element == self.quit_btn:
+                            pygame.quit()
+                            sys.exit()
 
                 self.manager.process_event(event)
 

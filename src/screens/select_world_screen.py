@@ -1,15 +1,14 @@
 import sys
 import pygame
-from .screen import Screen
 from pygame.locals import *
 import src.constants as const
 from src.ui import Button, Label, TextBox, ListSelection, ListItem
 from src.ui.manager import Manager
+from src import state
 
 
-class SelectWorldScreen(Screen):
-    def __init__(self, main):
-        super().__init__(main)
+class SelectWorldScreen():
+    def __init__(self):
         self.bg_surface = pygame.image.load(const.START_OPTION_BG_IMG).convert()
 
     def create_ui(self):
@@ -61,9 +60,8 @@ class SelectWorldScreen(Screen):
         rect.move_ip(0, gap)
         self.re_create_btn = Button(rect, "Re-create", self.manager)
 
-
     def show(self):
-        window = self.main.window
+        window = state.window
         self.create_ui()
 
         while True:
@@ -74,10 +72,10 @@ class SelectWorldScreen(Screen):
                 if event.type == USEREVENT:
                     if event.user_type == const.UI_BUTTON_PRESS:
                         if event.ui_element == self.cancel_btn:
-                            self.main.screen = self.main.MAIN_MENU_SCREEN
+                            state.screen = const.MAIN_MENU_SCREEN
                             return
                         if event.ui_element == self.play_btn:
-                            self.main.screen = self.main.IN_GAME_SCREEN
+                            state.screen = const.IN_GAME_SCREEN
                             return
                 self.manager.process_event(event)
 
