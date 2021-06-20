@@ -6,7 +6,7 @@ from src.draw import draw_inside_border
 from src import prepare
 
 
-class Button(UIElement):
+class Toggle(UIElement):
     def __init__(self, relative_rect, text, manager):
         super().__init__(relative_rect, manager)
         self.text = text

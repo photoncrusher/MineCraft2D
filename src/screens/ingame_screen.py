@@ -10,13 +10,13 @@ from src import state
 
 class InGameScreen(Screen):
     def __init__(self):
-        self.day_sky = pygame.transform.scale(pygame.image.load(SKY).convert(), (WIDTH, HEIGTH))
-        self.manager = Manager((const.WIDTH, const.HEIGTH))
+        self.day_sky = pygame.transform.scale(pygame.image.load(SKY).convert(), (WIDTH, HEIGHT))
+        self.manager = Manager((const.WIDTH, const.HEIGHT))
         self.create_pause_ui()
 
     def create_pause_ui(self):
         self.label = Label("Game Menu", self.manager)
-        self.label.rect.center = (const.WIDTH / 2, const.HEIGTH / 8)
+        self.label.rect.center = (const.WIDTH / 2, const.HEIGHT / 8)
 
         gap = 10
         self.back_to_game_btn = Button(Rect(0, 0, 300, 40), "Back to Game", self.manager)
@@ -73,7 +73,7 @@ class InGameScreen(Screen):
             window.blit(text3, (30, 90))
 
             if pause:
-                surf = pygame.Surface((const.WIDTH, const.HEIGTH))
+                surf = pygame.Surface((const.WIDTH, const.HEIGHT))
                 surf.set_alpha(200)
                 rect = surf.get_rect(center=window.get_rect().center)
                 window.blit(surf, rect)

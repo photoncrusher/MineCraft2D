@@ -11,7 +11,7 @@ class GameEngine:
         self.map = Perlin(seed)
         # DEF THE NUMBER OF WID AND HEI BLOCK IN SCREEN
         self.number_of_wid_block = int(WIDTH / BLOCK_SIZE)
-        self.number_of_hei_block = int(HEIGTH / BLOCK_SIZE)
+        self.number_of_hei_block = int(HEIGHT / BLOCK_SIZE)
         # DEF THE PLAYER
         self.player = Player()
         self.jump = 0

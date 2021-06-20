@@ -12,7 +12,7 @@ class SplashScreen(Screen):
 
         credit = pygame.image.load(const.CREDIT_IMG)
         credit.convert()
-        credit = pygame.transform.scale(credit, (const.WIDTH, const.HEIGTH))
+        credit = pygame.transform.scale(credit, (const.WIDTH, const.HEIGHT))
 
         start_time = pygame.time.get_ticks()
         delay = 50  # milliseconds

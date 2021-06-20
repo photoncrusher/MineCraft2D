@@ -16,26 +16,26 @@ class MainMenuScreen(Screen):
         self.credit = const.CREDIT_IMG
 
     def create_ui(self):
-        self.manager = Manager((const.WIDTH, const.HEIGTH))
+        self.manager = Manager((const.WIDTH, const.HEIGHT))
 
         # Single player button
         rect = Rect(0, 0, 350, 40)
-        rect.center = (const.WIDTH / 2, const.HEIGTH / 10 * 5)
+        rect.center = (const.WIDTH / 2, const.HEIGHT / 10 * 5)
         self.single_player_btn = Button(rect, "Singleplayer", self.manager)
 
         # Multiplayer button
         rect = Rect(0, 0, 350, 40)
-        rect.center = (const.WIDTH / 2, const.HEIGTH / 10 * 6)
+        rect.center = (const.WIDTH / 2, const.HEIGHT / 10 * 6)
         self.multiplayer_btn = Button(rect, "Multiplayer", self.manager)
 
         # Option button
         rect = Rect(0, 0, 350, 40)
-        rect.center = (const.WIDTH / 2, const.HEIGTH / 10 * 7)
+        rect.center = (const.WIDTH / 2, const.HEIGHT / 10 * 7)
         self.option_btn = Button(rect, "Options...", self.manager)
 
         # Quit button
         rect = Rect(0, 0, 350, 40)
-        rect.center = (const.WIDTH / 2, const.HEIGTH / 10 * 8)
+        rect.center = (const.WIDTH / 2, const.HEIGHT / 10 * 8)
         self.quit_btn = Button(rect, "Quit", self.manager)
 
     def show(self):
@@ -65,8 +65,7 @@ class MainMenuScreen(Screen):
                         if event.ui_element == self.multiplayer_btn:
                             print("Multiplayer coming soon...")
                         if event.ui_element == self.option_btn:
-                            # state.screen = state.OPTION_SCREEN
-                            print("Coming soon...")
+                            state.screen = const.OPTION_SCREEN
                             return
                         if event.ui_element == self.quit_btn:
                             pygame.quit()

@@ -1,9 +1,20 @@
+"""
+Shared state variables
+"""
 import pygame
 from . import constants as const
 
-# Start screen
+window = pygame.display.set_mode((const.WIDTH, const.HEIGHT))
+
 screen = const.SPLASH_SCREEN
 
 seed = "Default seed"
 
-window = pygame.display.set_mode((const.WIDTH, const.HEIGTH))
+# Setting values
+music_volume = 1
+sound_volume = 1
+invert_mouse = False
+fov = 0.5
+sensitivity = 1
+difficult = "Normal"
+

@@ -15,26 +15,26 @@ class StartOptionScreen(Screen):
         self.create_ui()
 
     def create_ui(self):
-        self.manager = manager = Manager((const.WIDTH, const.HEIGTH))
+        self.manager = manager = Manager((const.WIDTH, const.HEIGHT))
 
         rect = Rect(0, 0, 120, 40)
-        rect.midleft = (const.WIDTH / 8, const.HEIGTH / 10)
+        rect.midleft = (const.WIDTH / 8, const.HEIGHT / 10)
         Label("Player name", manager)
 
         rect = Rect(0, 0, 200, 40)
-        rect.midleft = (const.WIDTH / 8 * 3, const.HEIGTH / 10)
+        rect.midleft = (const.WIDTH / 8 * 3, const.HEIGHT / 10)
         TextBox(rect, manager, init_text="DRANHCLUB")
 
         rect = Rect(0, 0, 120, 40)
-        rect.midleft = (const.WIDTH / 8, const.HEIGTH / 10 * 2)
+        rect.midleft = (const.WIDTH / 8, const.HEIGHT / 10 * 2)
         Label("Seed:", manager)
 
         rect = Rect(0, 0, 200, 40)
-        rect.midleft = (const.WIDTH / 8 * 3, const.HEIGTH / 10 * 2)
+        rect.midleft = (const.WIDTH / 8 * 3, const.HEIGHT / 10 * 2)
         self.seed_textbox = TextBox(rect, manager, init_text="12345")
 
         rect = Rect(0, 0, 100, 40)
-        rect.midleft = (const.WIDTH / 8 * 3, const.HEIGTH / 10 * 3)
+        rect.midleft = (const.WIDTH / 8 * 3, const.HEIGHT / 10 * 3)
         self.start_btn = Button(rect, "START", manager)
 
     def show(self):
