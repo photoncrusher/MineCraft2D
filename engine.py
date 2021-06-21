@@ -21,11 +21,13 @@ class GameEngine:
     def normalize(self, block_hei_i):
         block_hei_i = int((block_hei_i + 2) / 3 * self.number_of_hei_block)
         return block_hei_i
-    def custom_round(self,x):
+
+    def custom_round(self, x):
         if self.player.status == 'RIGHT':
             return round(x)
         else:
             return round(x)
+
     # GET VALUES OF BLOCK WID I TO BLOCK HEI I
     def get_Value(self, block_wid_i):
         block_hei_i = self.map.valueAt(block_wid_i)
@@ -38,17 +40,19 @@ class GameEngine:
         order_of_hei_block = self.custom_round(y_original / BLOCK_SIZE)
         return [order_of_wid_block, order_of_wid_block]
 
-    def get_event(self,event):
+    def get_event(self, event):
         ev = self.player.get_event(event)
         return ev
 
-    def get_jump_logical(self,block_hei_origin,x_original):
-        if block_hei_origin < (self.get_Value(x_original/ 20 + 1) - 1 - self.player.jump_delta) and self.player.status == 'LEFT':
+    def get_jump_logical(self, block_hei_origin, x_original):
+        if block_hei_origin < (
+                self.get_Value(x_original / 20 + 1) - 1 - self.player.jump_delta) and self.player.status == 'LEFT':
             if self.flag:
                 self.player.status = 'STAT_LEFT'
                 self.flag = False
                 self.player.pos_x = x_original + WIDTH / 300
-        elif block_hei_origin < (self.get_Value(x_original / 20 - 1) - 1 - self.player.jump_delta) and self.player.status == 'RIGHT':
+        elif block_hei_origin < (
+                self.get_Value(x_original / 20 - 1) - 1 - self.player.jump_delta) and self.player.status == 'RIGHT':
             if self.flag:
                 self.player.status = 'STAT_RIGHT'
                 self.flag = False
@@ -84,10 +88,10 @@ class GameEngine:
         limit_hei = order_of_hei_block + self.custom_round(self.number_of_hei_block) + 3
         status = self.player.status
 
-        if self.player.jump_delta >0:
+        if self.player.jump_delta > 0:
             status = 'JUMP'
             self.m = self.m + 1
-            self.player.jump_delta = 3*(np.sin(np.deg2rad(9*self.m)))
+            self.player.jump_delta = 3 * (np.sin(np.deg2rad(9 * self.m)))
         else:
             self.player.jump_delta = 0
             self.m = 0
@@ -103,4 +107,4 @@ class GameEngine:
             for h in range(block_hei_i + 1, 100):
                 block.draw(DISPLAYSURF, block_wid_i, h, 'DIRT', -x_first, y_first)
         self.player.pos_y = y
-        return [x, y, idx,status]
+        return [x, y, idx, status]

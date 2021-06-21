@@ -13,7 +13,6 @@ class OptionScreen(Screen):
         self.bg_surface = pygame.image.load(const.START_OPTION_BG_IMG).convert()
         self.create_ui()
 
-
     def create_ui(self):
         self.manager = Manager((const.WIDTH, const.HEIGHT))
 
@@ -29,7 +28,7 @@ class OptionScreen(Screen):
         self.music_slider.rect.move_ip(-10, vertical_gap * 4)
 
         # Invert mouse toggle
-        self.invert_mouse_toggle = Toggle(Rect(0, 0, 350, 40), "Invert mouse: OFF", self.manager)
+        self.invert_mouse_toggle = Toggle(Rect(0, 0, 350, 40), "Invert mouse", ["ON", "OFF"], self.manager)
         self.invert_mouse_toggle.rect.topleft = self.music_slider.rect.bottomleft
         self.invert_mouse_toggle.rect.move_ip(0, vertical_gap)
 
@@ -50,7 +49,8 @@ class OptionScreen(Screen):
         self.sensitivity_slider.rect.move_ip(0, vertical_gap)
 
         # Difficult toggle
-        self.difficult_toggle = Toggle(Rect(0, 0, 350, 40), "Difficult: Normal", self.manager)
+        self.difficult_toggle = Toggle(Rect(0, 0, 350, 40), "Difficult", ["Peaceful", "Easy", "Normal", "Hard"],
+                                       self.manager)
         self.difficult_toggle.rect.topleft = self.sensitivity_slider.rect.bottomleft
         self.difficult_toggle.rect.move_ip(0, vertical_gap)
 
@@ -72,18 +72,18 @@ class OptionScreen(Screen):
     def set_setting_value(self):
         self.music_slider.set_progress(state.music_volume)
         self.sound_slider.set_progress(state.sound_volume)
-        # self.invert_mouse_toggle.set...
+        self.invert_mouse_toggle.set_state(state.invert_mouse)
         self.sensitivity_slider.set_progress(state.sensitivity)
         self.fov_slider.set_progress(state.fov)
-        # self.difficult_toggle.set...
+        self.difficult_toggle.set_state(state.difficult)
 
     def save_setting_value(self):
         state.music_volume = self.music_slider.progress
         state.sound_volume = self.sound_slider.progress
-        # state.invert_mouse = False
+        state.invert_mouse = self.invert_mouse_toggle.get_state_idx()
         state.sensitivity = self.sensitivity_slider.progress
         state.fov = self.fov_slider.progress
-        # state.difficult = "Normal"
+        state.difficult = self.difficult_toggle.get_state_idx()
 
     def show(self):
         window = state.window

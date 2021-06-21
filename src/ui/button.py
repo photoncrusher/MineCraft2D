@@ -16,6 +16,7 @@ class Button(UIElement):
         self.img = self.crop_and_scale_btn_img(prepare.btn_img)
         self.hover_img = self.crop_and_scale_btn_img(prepare.hover_btn_img)
         self.press_img = self.crop_and_scale_btn_img(prepare.press_btn_img)
+        self.sound = prepare.sound["sound_ui_btn_click"]
 
     def process_event(self, event):
         if self.rect.collidepoint(pygame.mouse.get_pos()):
@@ -26,6 +27,8 @@ class Button(UIElement):
         if event.type == pygame.MOUSEBUTTONDOWN:
             if self.hover:
                 self.pressing = True
+                pygame.mixer.Channel(1).play(self.sound)
+                self.sound.play()
         elif event.type == pygame.MOUSEBUTTONUP:
             if self.pressing:
                 e = pygame.event.Event(pygame.USEREVENT, user_type=const.UI_BUTTON_PRESS, ui_element=self)

@@ -19,6 +19,7 @@ DODGER_BLUE = (30, 144, 255)
 
 # AUDIO CONSTANTS
 BACKGROUND_AUDIO = os.path.join(main_dir, "../audio/bgr_audio.mp3")
+SOUND_UI_BTN_CLICK = os.path.join(main_dir, "../audio/ui_btn_click.mp3")
 
 # FONT CONSTANTS
 FONT = os.path.join(main_dir, "../font/minecraft_font.ttf")
@@ -49,6 +50,7 @@ OPTION_SCREEN = 5
 
 # UI EVENT CONSTANTS
 UI_BUTTON_PRESS = 0
+UI_TOGGLE_PRESS = 1
 
 # UI CONSTANTS
 BTN_HOVER_COLOR = (120, 160, 80)

@@ -27,3 +27,9 @@ _grey = pygame.Surface((200, 20))
 _grey.set_alpha(100)
 press_btn_img.blit(_grey, (0, 0))
 
+sound = dict()
+
+
+def load():
+    sound["background_music"] = pygame.mixer.Sound(const.BACKGROUND_AUDIO)
+    sound["sound_ui_btn_click"] = pygame.mixer.Sound(const.SOUND_UI_BTN_CLICK)

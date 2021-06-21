@@ -14,6 +14,8 @@ class MainMenuScreen(Screen):
         self.background_audio = const.BACKGROUND_AUDIO
         self.background_img = get_animated(const.ANIMATED_IMG)
         self.credit = const.CREDIT_IMG
+        self.background_music_channel = mixer.Channel(0)
+        self.background_music_channel.play(prepare.sound["background_music"], loops=-1)
 
     def create_ui(self):
         self.manager = Manager((const.WIDTH, const.HEIGHT))
@@ -46,12 +48,12 @@ class MainMenuScreen(Screen):
         index = 0.0
 
         # SET THE BACKGROUND AUDIO
-        mixer.set_num_channels(3)
-        mixer.Channel(1).play(mixer.Sound(self.background_audio), loops=-1)
-
+        self.background_music_channel.unpause()
         self.create_ui()
+        clock = pygame.time.Clock()
 
         while True:
+            clock.tick(60)
             for event in pygame.event.get():
                 if event.type == QUIT:
                     pygame.quit()
@@ -60,7 +62,7 @@ class MainMenuScreen(Screen):
                     if event.user_type == const.UI_BUTTON_PRESS:
                         if event.ui_element == self.single_player_btn:
                             state.screen = const.SELECT_WORLD_SCREEN
-                            mixer.stop()
+                            self.background_music_channel.pause()
                             return
                         if event.ui_element == self.multiplayer_btn:
                             print("Multiplayer coming soon...")

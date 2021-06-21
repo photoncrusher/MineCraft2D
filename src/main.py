@@ -4,15 +4,17 @@ import os
 from .screens import SplashScreen, MainMenuScreen, InGameScreen, StartOptionScreen, SelectWorldScreen, OptionScreen
 from . import constants as const
 from . import state
+from src import prepare
 
 
 def main():
     pygame.init()
     pygame.font.init()
     pygame.mixer.init()
+    pygame.mixer.set_num_channels(8)
 
     # Load data
-    # storage.load_data()
+    prepare.load()
 
     # Setup window
     pygame.display.set_caption(const.NAME)

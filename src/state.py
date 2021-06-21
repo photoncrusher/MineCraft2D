@@ -13,8 +13,8 @@ seed = "Default seed"
 # Setting values
 music_volume = 1
 sound_volume = 1
-invert_mouse = False
+invert_mouse = 0
 fov = 0.5
 sensitivity = 1
-difficult = "Normal"
+difficult = 2
 
