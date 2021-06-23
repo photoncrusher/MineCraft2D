@@ -11,13 +11,13 @@ from src.components.player import Player
 
 class TestScreen(Screen):
     def __init__(self):
-        pass
+        self.font = pygame.font.Font(const.FONT, 20)
 
     def show(self):
         clock = pygame.time.Clock()
         window = state.window
         dirt_group = Group()
-        for i in range(0, 20):
+        for i in range(0, 30):
             for j in range(20, 25):
                 dirt_block = DirtBlock()
                 dirt_block.set_pos(i, j)
@@ -38,5 +38,12 @@ class TestScreen(Screen):
             window.fill((255, 255, 255))
             dirt_group.draw(window)
             player_group.draw(window)
-            player_group.update()
+            player_group.update(dirt_group)
+
+            # draw info
+            window.blit(self.font.render(f"{player.key_stack=}", True, (0, 0, 0)), (0, 0))
+            window.blit(self.font.render(f"{player.state=}", True, (0, 0, 0)), (0, 20))
+            window.blit(self.font.render(f"{player.dir=}", True, (0, 0, 0)), (0, 40))
+            window.blit(self.font.render(f"{player.standing=}", True, (0, 0, 0)), (0, 60))
+
             pygame.display.update()

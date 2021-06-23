@@ -29,6 +29,7 @@ class Player(Sprite):
         # Init state and direction
         self.state = Player.IDLE
         self.dir = Player.RIGHT
+        self.standing = False
 
         # Prepare for movement
         self.rect = self.image.get_rect()
@@ -77,16 +78,29 @@ class Player(Sprite):
                 self.x_velocity += self.x_acceleration
                 self.x_velocity = min(self.x_velocity, self.max_x_speed)
 
+        if self.standing:
+            self.y_velocity = 0
+        else:
+            self.y_velocity += self.y_acceleration
+            self.y_velocity = min(self.y_velocity, self.max_y_speed)
+
         # Add velocity to position
         self.pos_x += self.x_velocity
+        self.pos_y += self.y_velocity
 
         # Update position
         self.rect.x = self.pos_x
         self.rect.y = self.pos_y
 
-    def update(self, *args, **kwargs):
+    def update(self, collide_group, **kwargs):
         self.update_animation()
         self.update_position()
+
+        collider = pygame.sprite.spritecollideany(self, collide_group)
+        if collider:
+            self.standing = True
+        else:
+            self.standing = False
 
     def process_event(self, event):
         # Update user input key stack
@@ -105,8 +119,12 @@ class Player(Sprite):
             elif event.key == pygame.K_SPACE:
                 self.key_stack.remove(pygame.K_SPACE)
 
-        # Get dir and state from top of stack
         if len(self.key_stack):
+            if pygame.K_SPACE in self.key_stack:
+                if self.standing:
+                    self.jump()
+
+            # Get dir and state from top of stack
             last_key = self.key_stack[-1]
             if last_key == pygame.K_a:
                 self.dir = Player.LEFT
@@ -114,9 +132,10 @@ class Player(Sprite):
             elif last_key == pygame.K_d:
                 self.dir = Player.RIGHT
                 self.state = Player.MOVING
-            elif last_key == pygame.K_SPACE:
-                self.state = Player.JUMPING
         else:
             self.state = Player.IDLE
 
-    # def jump(self):
+    def jump(self):
+        self.state = Player.JUMPING
+        self.y_velocity -= 10
+        self.standing = False
