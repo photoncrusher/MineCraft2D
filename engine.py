@@ -3,13 +3,13 @@ from map_generator import *
 from block import *
 import numpy as np
 from src.constants import *
-from player import *
+from player import Player
 
 
 class GameEngine:
     def __init__(self, seed) -> None:
         self.map = Perlin(seed)
-        # DEF THE NUMBER OF WID AND HEI BLOCK IN SCREEN
+        # DEF THE NUMBER OF WID AND HEI BLOCK IN A SCREEN
         self.number_of_wid_block = int(WIDTH / BLOCK_SIZE)
         self.number_of_hei_block = int(HEIGHT / BLOCK_SIZE)
         # DEF THE PLAYER
@@ -44,21 +44,21 @@ class GameEngine:
         ev = self.player.get_event(event)
         return ev
 
-    def get_jump_logical(self, block_hei_origin, x_original):
-        if block_hei_origin < (
-                self.get_Value(x_original / 20 + 1) - 1 - self.player.jump_delta) and self.player.status == 'LEFT':
-            if self.flag:
-                self.player.status = 'STAT_LEFT'
-                self.flag = False
-                self.player.pos_x = x_original + WIDTH / 300
-        elif block_hei_origin < (
-                self.get_Value(x_original / 20 - 1) - 1 - self.player.jump_delta) and self.player.status == 'RIGHT':
-            if self.flag:
-                self.player.status = 'STAT_RIGHT'
-                self.flag = False
-                self.player.pos_x = x_original - WIDTH / 300
-        else:
-            self.flag = True
+    # def get_jump_logical(self, block_hei_origin, x_original):
+    #     if block_hei_origin < (
+    #             self.get_Value(x_original / 20 + 1) - 1 - self.player.jump_delta) and self.player.status == 'LEFT':
+    #         if self.flag:
+    #             self.player.status = 'STAT_LEFT'
+    #             self.flag = False
+    #             self.player.pos_x = x_original + WIDTH / 300
+    #     elif block_hei_origin < (
+    #             self.get_Value(x_original / 20 - 1) - 1 - self.player.jump_delta) and self.player.status == 'RIGHT':
+    #         if self.flag:
+    #             self.player.status = 'STAT_RIGHT'
+    #             self.flag = False
+    #             self.player.pos_x = x_original - WIDTH / 300
+    #     else:
+    #         self.flag = True
 
     # DRAW TO SCREEN FROM X, Y ORIGINAL
     def draw(self, DISPLAYSURF):
@@ -68,9 +68,11 @@ class GameEngine:
 
         index = self.player.index
         block = Block()
+
         # FROM ORIGINAL GET X_FIRST, Y_FIRST
         x_first = x_original - WIDTH / 2
         y_first = y_original
+        # print(f'{x_original=}, {y_original=}, {x_first}, {y_first}')
 
         # GET ORIGINAL BLOCK ORDER
         block_wid_origin = x_original / 20

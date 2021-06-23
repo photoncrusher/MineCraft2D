@@ -1,7 +1,7 @@
 import pygame
 from pygame.locals import *
 import os
-from .screens import SplashScreen, MainMenuScreen, InGameScreen, StartOptionScreen, SelectWorldScreen, OptionScreen
+from .screens import *
 from . import constants as const
 from . import state
 from src import prepare
@@ -27,12 +27,13 @@ def main():
     start_options_screen = StartOptionScreen()
     select_world_screen = SelectWorldScreen()
     option_screen = OptionScreen()
+    test_screen = TestScreen()
 
     # Running
     while 1:
         if state.screen == const.SPLASH_SCREEN:
             splash_screen.show()
-        if state.screen == const.MAIN_MENU_SCREEN:
+        elif state.screen == const.MAIN_MENU_SCREEN:
             main_menu.show()
         elif state.screen == const.IN_GAME_SCREEN:
             in_game.show()
@@ -42,6 +43,8 @@ def main():
             select_world_screen.show()
         elif state.screen == const.OPTION_SCREEN:
             option_screen.show()
+        elif state.screen == const.TEST_SCREEN:
+            test_screen.show()
 
 if __name__ == '__main__':
     main()

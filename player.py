@@ -10,9 +10,9 @@ class Player:
         self.pos_x = 10000
         self.pos_y = 0
         # self.image = get_a(prepare.PLAYER_GIF, 75, 80)
-        self.image = prepare.PLAYER_S
+        self.image = prepare.PLAYER_IMG_LIST
         # self.reverse_image = [pygame.transform.flip(im, True, False) for im in self.image]
-        self.reverse_image = prepare.PLAYER_S_REVERT
+        self.reverse_image = prepare.PLAYER_REVERT_IMG_LIST
         self.index = 0
         self.block_size = const.BLOCK_SIZE
         self.status = 'IDLE'

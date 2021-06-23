@@ -13,8 +13,8 @@ class MainMenuScreen(Screen):
     def __init__(self):
         self.background_img = get_animated(prepare.MAIN_MENU_BACKGROUND_GIF)
         self.credit = prepare.CREDIT_IMG
+        self.create_ui()
         self.background_music_channel = mixer.Channel(0)
-        self.background_music_channel.play(prepare.sound["background_music"], loops=-1)
 
     def create_ui(self):
         self.manager = Manager((const.WIDTH, const.HEIGHT))
@@ -47,9 +47,11 @@ class MainMenuScreen(Screen):
         index = 0.0
 
         # SET THE BACKGROUND AUDIO
+        if not self.background_music_channel.get_sound():
+            self.background_music_channel.play(prepare.sound["background_music"], loops=-1)
         self.background_music_channel.set_volume(state.music_volume)
         self.background_music_channel.unpause()
-        self.create_ui()
+
         clock = pygame.time.Clock()
 
         while True:

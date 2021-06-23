@@ -3,7 +3,7 @@ Prepare assets
 Load image, music, ... to use again and again
 """
 import pygame
-from pygame.locals import *
+from pygame.locals import Rect
 from PIL import Image
 import os
 from . import constants as const
@@ -22,15 +22,15 @@ START_OPTION_BG_IMG = pygame.image.load(os.path.join(assets_dir, "img", "wall.jp
 PLAYER_GIF = Image.open(os.path.join(assets_dir, "img", "minecraft_player.gif"))
 _player_sheet = pygame.image.load(os.path.join(assets_dir, "img", "player.png")).convert_alpha()
 
-PLAYER_S = []
+PLAYER_IMG_LIST = []
 for i in range(12):
     img = pygame.Surface((150, 182), flags=pygame.SRCALPHA)
     img.blit(_player_sheet, (0, 0), Rect(150 * i, 0, 150, 182))
     img = pygame.transform.scale(img, (35, 45))
-    PLAYER_S.append(img)
-PLAYER_S_REVERT = []
-for player in PLAYER_S:
-    PLAYER_S_REVERT.append(pygame.transform.flip(player, True, False))
+    PLAYER_IMG_LIST.append(img)
+PLAYER_REVERT_IMG_LIST = []
+for player in PLAYER_IMG_LIST:
+    PLAYER_REVERT_IMG_LIST.append(pygame.transform.flip(player, True, False))
 
 ## GUI
 _GUI_img = pygame.image.load(os.path.join(assets_dir, "img", "gui.png")).convert()

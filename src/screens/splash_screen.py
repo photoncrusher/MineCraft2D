@@ -19,7 +19,7 @@ class SplashScreen(Screen):
 
         # Get time for delay
         start_time = pygame.time.get_ticks()
-        delay = 500  # milliseconds
+        delay = 50  # milliseconds
         index = 0
         while True:
             # Delay
@@ -33,6 +33,5 @@ class SplashScreen(Screen):
                     sys.exit()
 
             window.fill((0, 255, 0))
-            window.blit(prepare.PLAYER_S[1], (0, 0))
-            # window.blit(credit, (0, 0))
+            window.blit(credit, (0, 0))
             pygame.display.update()

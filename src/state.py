@@ -6,7 +6,8 @@ from . import constants as const
 
 window = pygame.display.set_mode((const.WIDTH, const.HEIGHT))
 
-screen = const.SPLASH_SCREEN
+# screen = const.SPLASH_SCREEN
+screen = const.TEST_SCREEN
 
 seed = "Default seed"
 
