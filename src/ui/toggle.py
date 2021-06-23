@@ -44,15 +44,6 @@ class Toggle(Button):
                 self.next_state()
             self.pressing = False
 
-    def crop_and_scale_btn_img(self, img):
-        width = self.rect.w / const.UI_IMG_SCALE_RATIO
-        surf = pygame.Surface((width, 20))
-        surf.fill((255, 0, 0))
-        btn_img = img
-        surf.blit(btn_img, (0, 0), Rect(0, 0, width - 2, 20))
-        surf.blit(btn_img, (width - 2, 0), Rect(198, 0, 2, 20))
-        return pygame.transform.scale(surf, (int(width * const.UI_IMG_SCALE_RATIO), 40))
-
     def render(self):
         surface = pygame.Surface((self.rect.w, self.rect.h))
 

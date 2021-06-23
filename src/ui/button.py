@@ -13,9 +13,9 @@ class Button(UIElement):
         self.font = pygame.font.Font(const.FONT, const.DEFAULT_FONT_SIZE)
         self.hover = False
         self.pressing = False
-        self.img = self.crop_and_scale_btn_img(prepare.btn_img)
-        self.hover_img = self.crop_and_scale_btn_img(prepare.hover_btn_img)
-        self.press_img = self.crop_and_scale_btn_img(prepare.press_btn_img)
+        self.img = self.crop_and_scale_btn_img(prepare.GUI_BTN_IMG)
+        self.hover_img = self.crop_and_scale_btn_img(prepare.GUI_HOVER_BTN_IMG)
+        self.press_img = self.crop_and_scale_btn_img(prepare.GUI_PRESSED_BTN_IMG)
         self.sound = prepare.sound["sound_ui_btn_click"]
 
     def process_event(self, event):

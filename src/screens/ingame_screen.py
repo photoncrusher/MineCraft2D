@@ -6,13 +6,15 @@ import src.constants as const
 from engine import *
 from src.ui import Manager, Button, Label
 from src import state
+from src import prepare
 
 
 class InGameScreen(Screen):
     def __init__(self):
-        self.day_sky = pygame.transform.scale(pygame.image.load(SKY).convert(), (WIDTH, HEIGHT))
+        self.day_sky = prepare.SKY
         self.manager = Manager((const.WIDTH, const.HEIGHT))
         self.create_pause_ui()
+        self.game = GameEngine(state.seed)
 
     def create_pause_ui(self):
         self.label = Label("Game Menu", self.manager)
@@ -32,13 +34,13 @@ class InGameScreen(Screen):
         self.save_and_quit_btn.rect.move_ip(0, gap)
 
     def show(self):
-        game = GameEngine(state.seed)
         window = state.window
         myfont = pygame.font.Font(const.FONT, const.DEFAULT_FONT_SIZE)
         text2 = myfont.render(f'Seed: {state.seed}', True, (255, 0, 0))
         pause = False
-
+        clock = pygame.time.Clock()
         while True:
+            clock.tick(const.FRAME_RATE)
             for event in pygame.event.get():
                 if event.type == QUIT:
                     pygame.quit()
@@ -57,14 +59,13 @@ class InGameScreen(Screen):
                             state.screen = const.MAIN_MENU_SCREEN
                             return
                 if not pause:
-                    game.get_event(event)
+                    self.game.get_event(event)
                 else:
                     self.manager.process_event(event)
 
-            window.fill((255, 255, 255))
             window.blit(self.day_sky, (0, 0))
 
-            x_y = game.draw(window)
+            x_y = self.game.draw(window)
             text1 = myfont.render('x: ' + str(round(x_y[0] / 20, 2)) + ', y: ' + str(round(x_y[1] / 20, 2)), True,
                                   (0, 0, 0))
             text3 = myfont.render('stat: ' + str(x_y[3]), True, (255, 0, 0))

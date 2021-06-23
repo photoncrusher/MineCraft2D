@@ -1,11 +1,13 @@
 import os
 
-main_dir = os.path.split(os.path.abspath(__file__))[0]
+cur_dir = os.path.split(os.path.abspath(__file__))[0]
+assets_dir = os.path.join(cur_dir, "..", "assets")
 
 # FRAMEBUFFER CONSTANTS
 WIDTH = 800
 HEIGHT = 600
-NAME = "MINECRAFT 2D"
+WINDOW_TITLE = "MINECRAFT 2D"
+FRAME_RATE = 60
 
 # COLOR CONSTANTS
 WHITE = (255, 255, 255)
@@ -17,28 +19,12 @@ DARK_GREY = (80, 80, 80)
 LIGHT_BLUE = (173, 216, 230)
 DODGER_BLUE = (30, 144, 255)
 
-# AUDIO CONSTANTS
-BACKGROUND_AUDIO = os.path.join(main_dir, "../audio/bgr_audio.mp3")
-SOUND_UI_BTN_CLICK = os.path.join(main_dir, "../audio/ui_btn_click.mp3")
-
 # FONT CONSTANTS
-FONT = os.path.join(main_dir, "../font/minecraft_font.ttf")
+FONT = os.path.join(assets_dir, "font", "minecraft_font.ttf")
 DEFAULT_FONT_SIZE = 16
-
-# IMG CONSTANTS
-ANIMATED_IMG = os.path.join(main_dir, "../img/bgr_gif.gif")
-CREDIT_IMG = os.path.join(main_dir, "../img/credit.jpg")
-FRAME_IMG = os.path.join(main_dir, "../img/khung.jpg")
-START_OPTION_BG_IMG = os.path.join(main_dir, "../img/wall.jpg")
-PLAYER_IMG = os.path.join(main_dir, "../assets/minecraft_player.gif")
 
 # MAP CONSTANTS
 BLOCK_SIZE = 20
-
-# ASSETS
-LANDSCAPE = os.path.join(main_dir, "../assets/landscape.jpg")
-DIRT = os.path.join(main_dir, "../assets/dirt.jpg")
-SKY = os.path.join(main_dir, "../assets/sky.jpg")
 
 # SCREEN CONTANTS
 SPLASH_SCREEN = 0

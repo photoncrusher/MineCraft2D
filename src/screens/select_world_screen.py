@@ -4,12 +4,13 @@ from pygame.locals import *
 import src.constants as const
 from src.ui import Button, Label, TextBox, ListSelection, ListItem
 from src.ui.manager import Manager
-from src import state
+from src import state, prepare
 from .screen import Screen
+
 
 class SelectWorldScreen(Screen):
     def __init__(self):
-        self.bg_surface = pygame.image.load(const.START_OPTION_BG_IMG).convert()
+        self.bg_surface = prepare.START_OPTION_BG_IMG
 
     def create_ui(self):
         self.manager = Manager((const.WIDTH, const.HEIGHT))

@@ -1,12 +1,12 @@
 import pygame
-from src.constants import *
+from src import constants as const
+from src import prepare
 
 class Block:
     def __init__(self) -> None:
-        self.block_size = 20
-        self.landscape_asset = pygame.transform.scale(pygame.image.load(LANDSCAPE).convert(), (20, 20))
-
-        self.dirt_asset = pygame.transform.scale(pygame.image.load(DIRT).convert(), (20, 20))
+        self.block_size = const.BLOCK_SIZE
+        self.landscape_asset = prepare.GRASS_BLOCK_IMG
+        self.dirt_asset = prepare.DIRT_BLOCK_IMG
 
     # DEF TO GET THE BLOCK STYLE LIKE COLOR, etc...
     def get_block_style(self, block_type):

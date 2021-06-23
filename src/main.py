@@ -12,12 +12,12 @@ def main():
     pygame.font.init()
     pygame.mixer.init()
     pygame.mixer.set_num_channels(8)
-
     # Load data
-    prepare.load()
+    prepare.load_sound()
 
     # Setup window
-    pygame.display.set_caption(const.NAME)
+    pygame.display.set_caption(const.WINDOW_TITLE)
+    pygame.display.set_icon(prepare.GRASS_BLOCK_IMG)
     os.environ['SDL_VIDEO_CENTERED'] = '1'
 
     # Init screens

@@ -6,12 +6,12 @@ import pygame_gui
 import src.constants as const
 from src.ui import Button, Label, TextBox
 from src.ui.manager import Manager
-from src import state
+from src import state, prepare
 
 
 class StartOptionScreen(Screen):
     def __init__(self):
-        self.bg_surface = pygame.image.load(const.START_OPTION_BG_IMG).convert()
+        self.bg_surface = prepare.START_OPTION_BG_IMG
         self.create_ui()
 
     def create_ui(self):

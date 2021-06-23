@@ -20,12 +20,12 @@ class Slider(UIElement):
 
         # Indicator image
         self.indicator_width = 20
-        self.indicator_img = self.crop_by_width_and_scale_btn_img(self.indicator_width, prepare.btn_img)
-        self.indicator_hover_img = self.crop_by_width_and_scale_btn_img(self.indicator_width, prepare.hover_btn_img)
-        self.indicator_press_img = self.crop_by_width_and_scale_btn_img(self.indicator_width, prepare.press_btn_img)
+        self.indicator_img = self.crop_by_width_and_scale_btn_img(self.indicator_width, prepare.GUI_BTN_IMG)
+        self.indicator_hover_img = self.crop_by_width_and_scale_btn_img(self.indicator_width, prepare.GUI_HOVER_BTN_IMG)
+        self.indicator_press_img = self.crop_by_width_and_scale_btn_img(self.indicator_width, prepare.GUI_PRESSED_BTN_IMG)
 
         # Background image
-        self.background_img = self.crop_by_width_and_scale_btn_img(self.rect.width, prepare.disable_btn_img)
+        self.background_img = self.crop_by_width_and_scale_btn_img(self.rect.width, prepare.GUI_DISABLED_BTN_IMG)
 
     def process_event(self, event):
         pos_x = self.indicator_relative_pos_x + self.rect.x
