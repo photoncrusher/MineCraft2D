@@ -7,3 +7,4 @@ how to install:
 Current working:
 - engine
 - map generator
+- animation
