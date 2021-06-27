@@ -120,6 +120,7 @@ class Player(Sprite):
                 self.key_stack.remove(pygame.K_SPACE)
 
         if len(self.key_stack):
+            # If user press or hold SPACE
             if pygame.K_SPACE in self.key_stack:
                 if self.standing:
                     self.jump()
