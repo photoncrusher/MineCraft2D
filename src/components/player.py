@@ -15,6 +15,8 @@ class Player(Sprite):
     LEFT = "left"
     RIGHT = "right"
 
+    # flag
+    FLAG = 'DOWN'
     def __init__(self, *groups: AbstractGroup):
         super().__init__(*groups)
 
@@ -33,10 +35,10 @@ class Player(Sprite):
 
         # Prepare for movement
         self.rect = self.image.get_rect()
-        self.pos_x = self.rect.center[0]
-        self.pos_y = self.rect.center[1]
+        self.pos_x = self.rect.x
+        self.pos_y = self.rect.y
         self.max_x_speed = 2
-        self.max_y_speed = 20
+        self.max_y_speed = 5
         self.x_velocity = 0
         self.y_velocity = 0
         self.x_acceleration = 0.5
@@ -78,11 +80,23 @@ class Player(Sprite):
                 self.x_velocity += self.x_acceleration
                 self.x_velocity = min(self.x_velocity, self.max_x_speed)
 
+        # if self.y_velocity:
+        #     self.FLAG = 'DOWN'
+        #
+        # if self.x_velocity:
+        #     self.FLAG = 'LEFT'
         if self.standing:
             self.y_velocity = 0
         else:
             self.y_velocity += self.y_acceleration
             self.y_velocity = min(self.y_velocity, self.max_y_speed)
+
+        # if self.FLAG == 'LEFT':
+        #     if self.standing:
+        #         self.x_velocity = 0
+        #     else:
+        #         self.y_velocity += self.y_acceleration
+        #         self.y_velocity = min(self.y_velocity, self.max_y_speed)
 
         # Add velocity to position
         self.pos_x += self.x_velocity
@@ -92,11 +106,32 @@ class Player(Sprite):
         self.rect.x = self.pos_x
         self.rect.y = self.pos_y
 
+    def check_collide(self,collide_group):
+        collider = pygame.sprite.spritecollide(self, collide_group, False)
+        data = []
+        if collider:
+            for col in collider:
+                list_col = []
+                if col.rect.x < self.pos_x:
+                    list_col.append('LEFT')
+                if col.rect.x > self.pos_x:
+                    list_col.append('RIGHT')
+                if col.rect.y < self.pos_y:
+                    list_col.append('UP')
+                if col.rect.y > self.pos_y:
+                    list_col.append('DOWN')
+                data.append([col,list_col])
+        print(data)
+        # print(list_col)
+        return [collider]
+
     def update(self, collide_group, **kwargs):
         self.update_animation()
         self.update_position()
-
-        collider = pygame.sprite.spritecollideany(self, collide_group)
+        collider = self.check_collide(collide_group)[0]
+        # dir = self.check_collide(collide_group)[1]
+        # if dir:
+        #     print(dir[0])
         if collider:
             self.standing = True
         else:

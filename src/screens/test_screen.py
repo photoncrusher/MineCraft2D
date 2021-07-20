@@ -7,7 +7,7 @@ from src import state, prepare
 from src.components.blocks.dirt_block import DirtBlock
 from pygame.sprite import Group
 from src.components.player import Player
-
+import engine
 
 class TestScreen(Screen):
     def __init__(self):
@@ -17,11 +17,15 @@ class TestScreen(Screen):
         clock = pygame.time.Clock()
         window = state.window
         dirt_group = Group()
+        d = engine.GameEngine(1234)
+        a = []
         for i in range(0, 30):
-            for j in range(20, 25):
-                dirt_block = DirtBlock()
-                dirt_block.set_pos(i, j)
-                dirt_group.add(dirt_block)
+            a.append(d.get_Value(i))
+        for i in range(0,30):
+            j = a[i]
+            dirt_block = DirtBlock()
+            dirt_block.set_pos(i, j)
+            dirt_group.add(dirt_block)
 
         player = Player()
         player_group = Group(player)

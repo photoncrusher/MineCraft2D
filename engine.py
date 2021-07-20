@@ -81,6 +81,7 @@ class GameEngine:
         # GET OTHER X,Y
         x = block_wid_origin * 20
         y = (self.number_of_hei_block / 2 - block_hei_origin) * 20
+        
         # GET THE ORDER OF WID AND HEI BLOCK
         order_of_wid_block = self.find_area(x_first, y_first)[0]
         order_of_hei_block = self.find_area(x_first, y_first)[0]
