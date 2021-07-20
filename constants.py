@@ -1,0 +1,1 @@
+UISCALE = 1
