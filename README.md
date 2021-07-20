@@ -1,6 +1,6 @@
-# MineCraft2D Reborn\
+# MineCraft2D Reborn
 \
-This is the reborn version of Minecraft 2D currently working on\
+This is the reborn version of Minecraft 2D currently working on.\
 Features:
 - [x] True Camera system
 - [x] True Player Position system
