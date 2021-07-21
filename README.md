@@ -14,6 +14,7 @@ Features:
 Currently Working:
 - [ ] User interfaces
 - [ ] Item
+- [ ] Mining
 - [ ] Cave
 - [ ] Animation
 - [ ] Save, Load
